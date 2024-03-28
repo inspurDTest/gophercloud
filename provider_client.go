@@ -10,6 +10,8 @@ import (
 	"net/http"
 	"strings"
 	"sync"
+	"fmt"
+	"k8s.io/klog/v2"
 )
 
 // DefaultUserAgent is the default User-Agent string set in the request header.
@@ -162,7 +164,8 @@ func (client *ProviderClient) AuthenticatedHeaders() (m map[string]string) {
 	if t == "" {
 		return
 	}
-	return map[string]string{"X-Auth-Token": t}
+	// 王玉东 header添加Authorization
+	return map[string]string{"X-Auth-Token": t,"Authorization": fmt.Sprintf("Bearer %s", string(t))}
 }
 
 // UseTokenLock creates a mutex that is used to allow safe concurrent access to the auth token.
@@ -217,6 +220,7 @@ func (client *ProviderClient) SetTokenAndAuthResult(r AuthResult) error {
 	var err error
 	if r != nil {
 		tokenID, err = r.ExtractTokenID()
+		klog.Infof("auth result ID: %s", tokenID)
 		if err != nil {
 			return err
 		}

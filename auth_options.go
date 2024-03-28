@@ -93,6 +93,12 @@ type AuthOptions struct {
 	ApplicationCredentialID     string `json:"-"`
 	ApplicationCredentialName   string `json:"-"`
 	ApplicationCredentialSecret string `json:"-"`
+
+	// 王玉东添加
+	GrantType string `json:"grant_type,omitempty"`
+	ClientId string `json:"client_id,omitempty"`
+	NetworkEndpoint string `json:"network_endpoint,omitempty"`
+
 }
 
 // AuthScope allows a created token to be limited to a specific domain or project.

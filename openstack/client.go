@@ -7,10 +7,12 @@ import (
 
 	"github.com/gophercloud/gophercloud"
 	tokens2 "github.com/gophercloud/gophercloud/openstack/identity/v2/tokens"
+	tokeniam "github.com/gophercloud/gophercloud/openstack/identity/iam/tokens"
 	"github.com/gophercloud/gophercloud/openstack/identity/v3/extensions/ec2tokens"
 	"github.com/gophercloud/gophercloud/openstack/identity/v3/extensions/oauth1"
 	tokens3 "github.com/gophercloud/gophercloud/openstack/identity/v3/tokens"
 	"github.com/gophercloud/gophercloud/openstack/utils"
+	"k8s.io/klog/v2"
 )
 
 const (
@@ -21,6 +23,8 @@ const (
 	// v3 represents Keystone v3.
 	// The version can be anything from v3 to v3.x.
 	v3 = "v3"
+
+	iam = "iam"
 )
 
 /*
@@ -93,18 +97,21 @@ func Authenticate(client *gophercloud.ProviderClient, options gophercloud.AuthOp
 	versions := []*utils.Version{
 		{ID: v2, Priority: 20, Suffix: "/v2.0/"},
 		{ID: v3, Priority: 30, Suffix: "/v3/"},
+		{ID: iam, Priority: 40, Suffix: "/token/"},
 	}
 
 	chosen, endpoint, err := utils.ChooseVersion(client, versions)
 	if err != nil {
 		return err
 	}
-
+	klog.Infof("iam chosen: %v", chosen.ID)
 	switch chosen.ID {
 	case v2:
 		return v2auth(client, endpoint, options, gophercloud.EndpointOpts{})
 	case v3:
 		return v3auth(client, endpoint, &options, gophercloud.EndpointOpts{})
+	case iam:
+		return iamauth(client, endpoint, options, gophercloud.EndpointOpts{})
 	default:
 		// The switch statement must be out of date from the versions list.
 		return fmt.Errorf("Unrecognized identity version: %s", chosen.ID)
@@ -291,7 +298,87 @@ func v3auth(client *gophercloud.ProviderClient, endpoint string, opts tokens3.Au
 
 	return nil
 }
+func iamauth(client *gophercloud.ProviderClient, endpoint string, options gophercloud.AuthOptions, eo gophercloud.EndpointOpts) error {
+	iamClient, err := NewIdentityIAM(client, eo)
+	if err != nil {
+		return err
+	}
 
+	if endpoint != "" {
+		iamClient.Endpoint = endpoint
+	}
+
+	iamOpts := tokeniam.AuthOptions{
+		IdentityEndpoint: options.IdentityEndpoint,
+		Username:         options.Username,
+		Password:         options.Password,
+		GrantType:        options.GrantType,
+		ClientId:         options.ClientId,
+		NetworkEndpoint:  options.NetworkEndpoint,
+		TenantID:         options.TenantID,
+		TenantName:       options.TenantName,
+		AllowReauth:      options.AllowReauth,
+		TokenID:          options.TokenID,
+	}
+
+	result := tokeniam.Create(iamClient, iamOpts)
+	klog.Infof("iamauth result: %+v", result)
+	// 王玉东 获取token id
+	err = client.SetTokenAndAuthResult(result)
+	if err != nil {
+		return err
+	}
+
+/*	catalog, err := result.ExtractServiceCatalog()
+	if err != nil {
+		return err
+	}*/
+
+	if options.AllowReauth {
+		// here we're creating a throw-away client (tac). it's a copy of the user's provider client, but
+		// with the token and reauth func zeroed out. combined with setting `AllowReauth` to `false`,
+		// this should retry authentication only once
+		tac := *client
+		tac.SetThrowaway(true)
+		tac.ReauthFunc = nil
+		tac.SetTokenAndAuthResult(nil)
+		tao := options
+		tao.AllowReauth = false
+		client.ReauthFunc = func() error {
+			err := v2auth(&tac, endpoint, tao, eo)
+			if err != nil {
+				return err
+			}
+			client.CopyTokenFrom(&tac)
+			return nil
+		}
+	}
+	client.EndpointLocator = func(opts gophercloud.EndpointOpts) (string, error) {
+		return iamOpts.NetworkEndpoint, nil
+	}
+
+	return nil
+}
+
+// iam identity service.
+func NewIdentityIAM(client *gophercloud.ProviderClient, eo gophercloud.EndpointOpts) (*gophercloud.ServiceClient, error) {
+	endpoint := client.IdentityBase
+	clientType := "iam"
+	var err error
+	if !reflect.DeepEqual(eo, gophercloud.EndpointOpts{}) {
+		eo.ApplyDefaults(clientType)
+		endpoint, err = client.EndpointLocator(eo)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	return &gophercloud.ServiceClient{
+		ProviderClient: client,
+		Endpoint:       endpoint,
+		Type:           clientType,
+	}, nil
+}
 // NewIdentityV2 creates a ServiceClient that may be used to interact with the
 // v2 identity service.
 func NewIdentityV2(client *gophercloud.ProviderClient, eo gophercloud.EndpointOpts) (*gophercloud.ServiceClient, error) {
