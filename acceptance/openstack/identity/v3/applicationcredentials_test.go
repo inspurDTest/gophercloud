@@ -7,12 +7,12 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gophercloud/gophercloud/acceptance/clients"
-	"github.com/gophercloud/gophercloud/acceptance/tools"
-	"github.com/gophercloud/gophercloud/openstack"
-	"github.com/gophercloud/gophercloud/openstack/identity/v3/applicationcredentials"
-	"github.com/gophercloud/gophercloud/openstack/identity/v3/tokens"
-	th "github.com/gophercloud/gophercloud/testhelper"
+	"github.com/inspurDTest/gophercloud/acceptance/clients"
+	"github.com/inspurDTest/gophercloud/acceptance/tools"
+	"github.com/inspurDTest/gophercloud/openstack"
+	"github.com/inspurDTest/gophercloud/openstack/identity/v3/applicationcredentials"
+	"github.com/inspurDTest/gophercloud/openstack/identity/v3/tokens"
+	th "github.com/inspurDTest/gophercloud/testhelper"
 )
 
 func TestApplicationCredentialsCRD(t *testing.T) {

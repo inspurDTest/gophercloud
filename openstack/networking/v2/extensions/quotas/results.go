@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/gophercloud/gophercloud"
+	"github.com/inspurDTest/gophercloud"
 )
 
 type commonResult struct {

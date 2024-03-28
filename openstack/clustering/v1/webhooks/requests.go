@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/url"
 
-	"github.com/gophercloud/gophercloud"
+	"github.com/inspurDTest/gophercloud"
 )
 
 // TriggerOpts represents options used for triggering an action

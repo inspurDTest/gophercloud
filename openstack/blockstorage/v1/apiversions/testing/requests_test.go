@@ -3,10 +3,10 @@ package testing
 import (
 	"testing"
 
-	"github.com/gophercloud/gophercloud/openstack/blockstorage/v1/apiversions"
-	"github.com/gophercloud/gophercloud/pagination"
-	th "github.com/gophercloud/gophercloud/testhelper"
-	"github.com/gophercloud/gophercloud/testhelper/client"
+	"github.com/inspurDTest/gophercloud/openstack/blockstorage/v1/apiversions"
+	"github.com/inspurDTest/gophercloud/pagination"
+	th "github.com/inspurDTest/gophercloud/testhelper"
+	"github.com/inspurDTest/gophercloud/testhelper/client"
 )
 
 func TestListVersions(t *testing.T) {

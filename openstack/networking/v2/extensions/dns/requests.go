@@ -3,10 +3,10 @@ package dns
 import (
 	"net/url"
 
-	"github.com/gophercloud/gophercloud"
-	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/layer3/floatingips"
-	"github.com/gophercloud/gophercloud/openstack/networking/v2/networks"
-	"github.com/gophercloud/gophercloud/openstack/networking/v2/ports"
+	"github.com/inspurDTest/gophercloud"
+	"github.com/inspurDTest/gophercloud/openstack/networking/v2/extensions/layer3/floatingips"
+	"github.com/inspurDTest/gophercloud/openstack/networking/v2/networks"
+	"github.com/inspurDTest/gophercloud/openstack/networking/v2/ports"
 )
 
 // PortListOptsExt adds the DNS options to the base port ListOpts.

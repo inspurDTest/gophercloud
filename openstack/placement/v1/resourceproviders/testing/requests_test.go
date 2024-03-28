@@ -3,11 +3,11 @@ package testing
 import (
 	"testing"
 
-	"github.com/gophercloud/gophercloud/openstack/placement/v1/resourceproviders"
+	"github.com/inspurDTest/gophercloud/openstack/placement/v1/resourceproviders"
 
-	"github.com/gophercloud/gophercloud/pagination"
-	th "github.com/gophercloud/gophercloud/testhelper"
-	fake "github.com/gophercloud/gophercloud/testhelper/client"
+	"github.com/inspurDTest/gophercloud/pagination"
+	th "github.com/inspurDTest/gophercloud/testhelper"
+	fake "github.com/inspurDTest/gophercloud/testhelper/client"
 )
 
 func TestListResourceProviders(t *testing.T) {

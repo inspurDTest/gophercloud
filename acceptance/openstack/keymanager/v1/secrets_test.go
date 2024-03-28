@@ -7,10 +7,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gophercloud/gophercloud/acceptance/clients"
-	"github.com/gophercloud/gophercloud/acceptance/tools"
-	"github.com/gophercloud/gophercloud/openstack/keymanager/v1/secrets"
-	th "github.com/gophercloud/gophercloud/testhelper"
+	"github.com/inspurDTest/gophercloud/acceptance/clients"
+	"github.com/inspurDTest/gophercloud/acceptance/tools"
+	"github.com/inspurDTest/gophercloud/openstack/keymanager/v1/secrets"
+	th "github.com/inspurDTest/gophercloud/testhelper"
 )
 
 func TestSecretsCRUD(t *testing.T) {

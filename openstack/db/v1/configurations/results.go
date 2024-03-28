@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"time"
 
-	"github.com/gophercloud/gophercloud"
-	"github.com/gophercloud/gophercloud/pagination"
+	"github.com/inspurDTest/gophercloud"
+	"github.com/inspurDTest/gophercloud/pagination"
 )
 
 // Config represents a configuration group API resource.

@@ -3,11 +3,11 @@ package testing
 import (
 	"testing"
 
-	common "github.com/gophercloud/gophercloud/openstack/common/extensions/testing"
-	"github.com/gophercloud/gophercloud/openstack/identity/v2/extensions"
-	"github.com/gophercloud/gophercloud/pagination"
-	th "github.com/gophercloud/gophercloud/testhelper"
-	"github.com/gophercloud/gophercloud/testhelper/client"
+	common "github.com/inspurDTest/gophercloud/openstack/common/extensions/testing"
+	"github.com/inspurDTest/gophercloud/openstack/identity/v2/extensions"
+	"github.com/inspurDTest/gophercloud/pagination"
+	th "github.com/inspurDTest/gophercloud/testhelper"
+	"github.com/inspurDTest/gophercloud/testhelper/client"
 )
 
 func TestList(t *testing.T) {

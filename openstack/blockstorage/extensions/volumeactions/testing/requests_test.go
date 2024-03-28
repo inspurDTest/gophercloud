@@ -4,10 +4,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gophercloud/gophercloud"
-	"github.com/gophercloud/gophercloud/openstack/blockstorage/extensions/volumeactions"
-	th "github.com/gophercloud/gophercloud/testhelper"
-	"github.com/gophercloud/gophercloud/testhelper/client"
+	"github.com/inspurDTest/gophercloud"
+	"github.com/inspurDTest/gophercloud/openstack/blockstorage/extensions/volumeactions"
+	th "github.com/inspurDTest/gophercloud/testhelper"
+	"github.com/inspurDTest/gophercloud/testhelper/client"
 )
 
 func TestAttach(t *testing.T) {

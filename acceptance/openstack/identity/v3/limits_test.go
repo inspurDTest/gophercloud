@@ -7,12 +7,12 @@ import (
 	"os"
 	"testing"
 
-	"github.com/gophercloud/gophercloud/acceptance/clients"
-	"github.com/gophercloud/gophercloud/acceptance/tools"
-	"github.com/gophercloud/gophercloud/openstack/identity/v3/limits"
-	"github.com/gophercloud/gophercloud/openstack/identity/v3/registeredlimits"
-	"github.com/gophercloud/gophercloud/openstack/identity/v3/services"
-	th "github.com/gophercloud/gophercloud/testhelper"
+	"github.com/inspurDTest/gophercloud/acceptance/clients"
+	"github.com/inspurDTest/gophercloud/acceptance/tools"
+	"github.com/inspurDTest/gophercloud/openstack/identity/v3/limits"
+	"github.com/inspurDTest/gophercloud/openstack/identity/v3/registeredlimits"
+	"github.com/inspurDTest/gophercloud/openstack/identity/v3/services"
+	th "github.com/inspurDTest/gophercloud/testhelper"
 )
 
 func TestGetEnforcementModel(t *testing.T) {

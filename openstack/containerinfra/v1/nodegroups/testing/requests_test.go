@@ -3,10 +3,10 @@ package testing
 import (
 	"testing"
 
-	"github.com/gophercloud/gophercloud"
-	"github.com/gophercloud/gophercloud/openstack/containerinfra/v1/nodegroups"
-	th "github.com/gophercloud/gophercloud/testhelper"
-	fake "github.com/gophercloud/gophercloud/testhelper/client"
+	"github.com/inspurDTest/gophercloud"
+	"github.com/inspurDTest/gophercloud/openstack/containerinfra/v1/nodegroups"
+	th "github.com/inspurDTest/gophercloud/testhelper"
+	fake "github.com/inspurDTest/gophercloud/testhelper/client"
 )
 
 // TestGetNodeGroupSuccess gets a node group successfully.

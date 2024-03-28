@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"time"
 
-	"github.com/gophercloud/gophercloud"
-	"github.com/gophercloud/gophercloud/openstack/loadbalancer/v2/monitors"
-	"github.com/gophercloud/gophercloud/pagination"
+	"github.com/inspurDTest/gophercloud"
+	"github.com/inspurDTest/gophercloud/openstack/loadbalancer/v2/monitors"
+	"github.com/inspurDTest/gophercloud/pagination"
 )
 
 // SessionPersistence represents the session persistence feature of the load

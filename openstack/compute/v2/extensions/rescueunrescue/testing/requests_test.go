@@ -5,9 +5,9 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/gophercloud/gophercloud/openstack/compute/v2/extensions/rescueunrescue"
-	th "github.com/gophercloud/gophercloud/testhelper"
-	fake "github.com/gophercloud/gophercloud/testhelper/client"
+	"github.com/inspurDTest/gophercloud/openstack/compute/v2/extensions/rescueunrescue"
+	th "github.com/inspurDTest/gophercloud/testhelper"
+	fake "github.com/inspurDTest/gophercloud/testhelper/client"
 )
 
 func TestRescue(t *testing.T) {

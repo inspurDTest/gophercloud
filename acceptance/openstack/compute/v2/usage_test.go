@@ -8,11 +8,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gophercloud/gophercloud/acceptance/clients"
-	"github.com/gophercloud/gophercloud/acceptance/tools"
-	"github.com/gophercloud/gophercloud/openstack/compute/v2/extensions/usage"
-	"github.com/gophercloud/gophercloud/pagination"
-	th "github.com/gophercloud/gophercloud/testhelper"
+	"github.com/inspurDTest/gophercloud/acceptance/clients"
+	"github.com/inspurDTest/gophercloud/acceptance/tools"
+	"github.com/inspurDTest/gophercloud/openstack/compute/v2/extensions/usage"
+	"github.com/inspurDTest/gophercloud/pagination"
+	th "github.com/inspurDTest/gophercloud/testhelper"
 )
 
 func TestUsageSingleTenant(t *testing.T) {

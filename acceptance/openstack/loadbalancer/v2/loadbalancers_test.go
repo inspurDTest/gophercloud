@@ -6,16 +6,16 @@ package v2
 import (
 	"testing"
 
-	"github.com/gophercloud/gophercloud/acceptance/clients"
-	networking "github.com/gophercloud/gophercloud/acceptance/openstack/networking/v2"
-	"github.com/gophercloud/gophercloud/acceptance/openstack/networking/v2/extensions/qos/policies"
-	"github.com/gophercloud/gophercloud/acceptance/tools"
-	"github.com/gophercloud/gophercloud/openstack/loadbalancer/v2/l7policies"
-	"github.com/gophercloud/gophercloud/openstack/loadbalancer/v2/listeners"
-	"github.com/gophercloud/gophercloud/openstack/loadbalancer/v2/loadbalancers"
-	"github.com/gophercloud/gophercloud/openstack/loadbalancer/v2/monitors"
-	"github.com/gophercloud/gophercloud/openstack/loadbalancer/v2/pools"
-	th "github.com/gophercloud/gophercloud/testhelper"
+	"github.com/inspurDTest/gophercloud/acceptance/clients"
+	networking "github.com/inspurDTest/gophercloud/acceptance/openstack/networking/v2"
+	"github.com/inspurDTest/gophercloud/acceptance/openstack/networking/v2/extensions/qos/policies"
+	"github.com/inspurDTest/gophercloud/acceptance/tools"
+	"github.com/inspurDTest/gophercloud/openstack/loadbalancer/v2/l7policies"
+	"github.com/inspurDTest/gophercloud/openstack/loadbalancer/v2/listeners"
+	"github.com/inspurDTest/gophercloud/openstack/loadbalancer/v2/loadbalancers"
+	"github.com/inspurDTest/gophercloud/openstack/loadbalancer/v2/monitors"
+	"github.com/inspurDTest/gophercloud/openstack/loadbalancer/v2/pools"
+	th "github.com/inspurDTest/gophercloud/testhelper"
 )
 
 func TestLoadbalancersList(t *testing.T) {

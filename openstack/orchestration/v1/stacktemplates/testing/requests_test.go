@@ -3,9 +3,9 @@ package testing
 import (
 	"testing"
 
-	"github.com/gophercloud/gophercloud/openstack/orchestration/v1/stacktemplates"
-	th "github.com/gophercloud/gophercloud/testhelper"
-	fake "github.com/gophercloud/gophercloud/testhelper/client"
+	"github.com/inspurDTest/gophercloud/openstack/orchestration/v1/stacktemplates"
+	th "github.com/inspurDTest/gophercloud/testhelper"
+	fake "github.com/inspurDTest/gophercloud/testhelper/client"
 )
 
 func TestGetTemplate(t *testing.T) {

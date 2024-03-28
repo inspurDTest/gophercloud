@@ -5,9 +5,9 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/gophercloud/gophercloud/openstack/loadbalancer/v2/l7policies"
-	th "github.com/gophercloud/gophercloud/testhelper"
-	"github.com/gophercloud/gophercloud/testhelper/client"
+	"github.com/inspurDTest/gophercloud/openstack/loadbalancer/v2/l7policies"
+	th "github.com/inspurDTest/gophercloud/testhelper"
+	"github.com/inspurDTest/gophercloud/testhelper/client"
 )
 
 // SingleL7PolicyBody is the canned body of a Get request on an existing l7policy.

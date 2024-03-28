@@ -6,10 +6,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gophercloud/gophercloud/openstack/imageservice/v2/tasks"
-	"github.com/gophercloud/gophercloud/pagination"
-	th "github.com/gophercloud/gophercloud/testhelper"
-	fakeclient "github.com/gophercloud/gophercloud/testhelper/client"
+	"github.com/inspurDTest/gophercloud/openstack/imageservice/v2/tasks"
+	"github.com/inspurDTest/gophercloud/pagination"
+	th "github.com/inspurDTest/gophercloud/testhelper"
+	fakeclient "github.com/inspurDTest/gophercloud/testhelper/client"
 )
 
 func TestList(t *testing.T) {

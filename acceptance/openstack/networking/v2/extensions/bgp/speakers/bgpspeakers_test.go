@@ -3,13 +3,13 @@ package speakers
 import (
 	"testing"
 
-	"github.com/gophercloud/gophercloud/acceptance/clients"
-	networking "github.com/gophercloud/gophercloud/acceptance/openstack/networking/v2"
-	ap "github.com/gophercloud/gophercloud/acceptance/openstack/networking/v2/extensions/bgp/peers"
-	"github.com/gophercloud/gophercloud/acceptance/tools"
-	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/bgp/peers"
-	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/bgp/speakers"
-	th "github.com/gophercloud/gophercloud/testhelper"
+	"github.com/inspurDTest/gophercloud/acceptance/clients"
+	networking "github.com/inspurDTest/gophercloud/acceptance/openstack/networking/v2"
+	ap "github.com/inspurDTest/gophercloud/acceptance/openstack/networking/v2/extensions/bgp/peers"
+	"github.com/inspurDTest/gophercloud/acceptance/tools"
+	"github.com/inspurDTest/gophercloud/openstack/networking/v2/extensions/bgp/peers"
+	"github.com/inspurDTest/gophercloud/openstack/networking/v2/extensions/bgp/speakers"
+	th "github.com/inspurDTest/gophercloud/testhelper"
 )
 
 func TestBGPSpeakerCRUD(t *testing.T) {

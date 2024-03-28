@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"time"
 
-	"github.com/gophercloud/gophercloud"
-	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/security/rules"
-	"github.com/gophercloud/gophercloud/pagination"
+	"github.com/inspurDTest/gophercloud"
+	"github.com/inspurDTest/gophercloud/openstack/networking/v2/extensions/security/rules"
+	"github.com/inspurDTest/gophercloud/pagination"
 )
 
 // SecGroup represents a container for security group rules.

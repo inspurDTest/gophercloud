@@ -4,10 +4,10 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gophercloud/gophercloud/openstack/clustering/v1/nodes"
-	"github.com/gophercloud/gophercloud/pagination"
-	th "github.com/gophercloud/gophercloud/testhelper"
-	fake "github.com/gophercloud/gophercloud/testhelper/client"
+	"github.com/inspurDTest/gophercloud/openstack/clustering/v1/nodes"
+	"github.com/inspurDTest/gophercloud/pagination"
+	th "github.com/inspurDTest/gophercloud/testhelper"
+	fake "github.com/inspurDTest/gophercloud/testhelper/client"
 )
 
 func TestCreateNode(t *testing.T) {

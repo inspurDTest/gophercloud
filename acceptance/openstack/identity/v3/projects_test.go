@@ -6,10 +6,10 @@ package v3
 import (
 	"testing"
 
-	"github.com/gophercloud/gophercloud/acceptance/clients"
-	"github.com/gophercloud/gophercloud/acceptance/tools"
-	"github.com/gophercloud/gophercloud/openstack/identity/v3/projects"
-	th "github.com/gophercloud/gophercloud/testhelper"
+	"github.com/inspurDTest/gophercloud/acceptance/clients"
+	"github.com/inspurDTest/gophercloud/acceptance/tools"
+	"github.com/inspurDTest/gophercloud/openstack/identity/v3/projects"
+	th "github.com/inspurDTest/gophercloud/testhelper"
 )
 
 func TestProjectsListAvailable(t *testing.T) {

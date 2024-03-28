@@ -1,8 +1,8 @@
 package registeredlimits
 
 import (
-	"github.com/gophercloud/gophercloud"
-	"github.com/gophercloud/gophercloud/pagination"
+	"github.com/inspurDTest/gophercloud"
+	"github.com/inspurDTest/gophercloud/pagination"
 )
 
 // A model describing the configured enforcement model used by the deployment.

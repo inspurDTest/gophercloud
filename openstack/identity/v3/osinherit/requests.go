@@ -1,6 +1,6 @@
 package osinherit
 
-import "github.com/gophercloud/gophercloud"
+import "github.com/inspurDTest/gophercloud"
 
 // AssignOpts provides options to assign an inherited role
 type AssignOpts struct {

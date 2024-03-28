@@ -7,8 +7,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/gophercloud/gophercloud"
-	"github.com/gophercloud/gophercloud/pagination"
+	"github.com/inspurDTest/gophercloud"
+	"github.com/inspurDTest/gophercloud/pagination"
 )
 
 // Image represents an image found in the OpenStack Image service.

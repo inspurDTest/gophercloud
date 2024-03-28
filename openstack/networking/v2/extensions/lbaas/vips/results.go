@@ -1,8 +1,8 @@
 package vips
 
 import (
-	"github.com/gophercloud/gophercloud"
-	"github.com/gophercloud/gophercloud/pagination"
+	"github.com/inspurDTest/gophercloud"
+	"github.com/inspurDTest/gophercloud/pagination"
 )
 
 // SessionPersistence represents the session persistence feature of the load

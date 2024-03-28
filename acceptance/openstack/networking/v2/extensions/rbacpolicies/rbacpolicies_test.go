@@ -6,12 +6,12 @@ package rbacpolicies
 import (
 	"testing"
 
-	"github.com/gophercloud/gophercloud/acceptance/clients"
-	projects "github.com/gophercloud/gophercloud/acceptance/openstack/identity/v3"
-	networking "github.com/gophercloud/gophercloud/acceptance/openstack/networking/v2"
-	"github.com/gophercloud/gophercloud/acceptance/tools"
-	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/rbacpolicies"
-	th "github.com/gophercloud/gophercloud/testhelper"
+	"github.com/inspurDTest/gophercloud/acceptance/clients"
+	projects "github.com/inspurDTest/gophercloud/acceptance/openstack/identity/v3"
+	networking "github.com/inspurDTest/gophercloud/acceptance/openstack/networking/v2"
+	"github.com/inspurDTest/gophercloud/acceptance/tools"
+	"github.com/inspurDTest/gophercloud/openstack/networking/v2/extensions/rbacpolicies"
+	th "github.com/inspurDTest/gophercloud/testhelper"
 )
 
 func TestRBACPolicyCRUD(t *testing.T) {

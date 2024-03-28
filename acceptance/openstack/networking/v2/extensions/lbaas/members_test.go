@@ -6,11 +6,11 @@ package lbaas
 import (
 	"testing"
 
-	"github.com/gophercloud/gophercloud"
-	"github.com/gophercloud/gophercloud/acceptance/clients"
-	networking "github.com/gophercloud/gophercloud/acceptance/openstack/networking/v2"
-	"github.com/gophercloud/gophercloud/acceptance/tools"
-	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/lbaas/members"
+	"github.com/inspurDTest/gophercloud"
+	"github.com/inspurDTest/gophercloud/acceptance/clients"
+	networking "github.com/inspurDTest/gophercloud/acceptance/openstack/networking/v2"
+	"github.com/inspurDTest/gophercloud/acceptance/tools"
+	"github.com/inspurDTest/gophercloud/openstack/networking/v2/extensions/lbaas/members"
 )
 
 func TestMembersList(t *testing.T) {

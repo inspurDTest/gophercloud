@@ -7,10 +7,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gophercloud/gophercloud/acceptance/clients"
-	"github.com/gophercloud/gophercloud/acceptance/tools"
-	"github.com/gophercloud/gophercloud/openstack/sharedfilesystems/v2/replicas"
-	th "github.com/gophercloud/gophercloud/testhelper"
+	"github.com/inspurDTest/gophercloud/acceptance/clients"
+	"github.com/inspurDTest/gophercloud/acceptance/tools"
+	"github.com/inspurDTest/gophercloud/openstack/sharedfilesystems/v2/replicas"
+	th "github.com/inspurDTest/gophercloud/testhelper"
 )
 
 // 2.56 is required for a /v2/replicas/XXX URL support

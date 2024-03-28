@@ -1,9 +1,9 @@
 package users
 
 import (
-	"github.com/gophercloud/gophercloud"
-	db "github.com/gophercloud/gophercloud/openstack/db/v1/databases"
-	"github.com/gophercloud/gophercloud/pagination"
+	"github.com/inspurDTest/gophercloud"
+	db "github.com/inspurDTest/gophercloud/openstack/db/v1/databases"
+	"github.com/inspurDTest/gophercloud/pagination"
 )
 
 // User represents a database user

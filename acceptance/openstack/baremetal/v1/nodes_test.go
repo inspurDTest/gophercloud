@@ -6,11 +6,11 @@ package v1
 import (
 	"testing"
 
-	"github.com/gophercloud/gophercloud/acceptance/clients"
-	"github.com/gophercloud/gophercloud/openstack/baremetal/v1/nodes"
-	"github.com/gophercloud/gophercloud/pagination"
+	"github.com/inspurDTest/gophercloud/acceptance/clients"
+	"github.com/inspurDTest/gophercloud/openstack/baremetal/v1/nodes"
+	"github.com/inspurDTest/gophercloud/pagination"
 
-	th "github.com/gophercloud/gophercloud/testhelper"
+	th "github.com/inspurDTest/gophercloud/testhelper"
 )
 
 func TestNodesCreateDestroy(t *testing.T) {

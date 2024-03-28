@@ -6,13 +6,13 @@ package v3
 import (
 	"testing"
 
-	"github.com/gophercloud/gophercloud"
-	"github.com/gophercloud/gophercloud/acceptance/clients"
-	"github.com/gophercloud/gophercloud/acceptance/tools"
-	"github.com/gophercloud/gophercloud/openstack/identity/v3/domains"
-	"github.com/gophercloud/gophercloud/openstack/identity/v3/groups"
-	"github.com/gophercloud/gophercloud/openstack/identity/v3/roles"
-	th "github.com/gophercloud/gophercloud/testhelper"
+	"github.com/inspurDTest/gophercloud"
+	"github.com/inspurDTest/gophercloud/acceptance/clients"
+	"github.com/inspurDTest/gophercloud/acceptance/tools"
+	"github.com/inspurDTest/gophercloud/openstack/identity/v3/domains"
+	"github.com/inspurDTest/gophercloud/openstack/identity/v3/groups"
+	"github.com/inspurDTest/gophercloud/openstack/identity/v3/roles"
+	th "github.com/inspurDTest/gophercloud/testhelper"
 )
 
 func TestRolesList(t *testing.T) {

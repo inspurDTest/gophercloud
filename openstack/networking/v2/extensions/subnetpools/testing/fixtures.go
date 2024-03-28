@@ -3,7 +3,7 @@ package testing
 import (
 	"time"
 
-	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/subnetpools"
+	"github.com/inspurDTest/gophercloud/openstack/networking/v2/extensions/subnetpools"
 )
 
 const SubnetPoolsListResult = `

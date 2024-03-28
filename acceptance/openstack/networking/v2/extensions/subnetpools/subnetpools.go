@@ -3,10 +3,10 @@ package v2
 import (
 	"testing"
 
-	"github.com/gophercloud/gophercloud"
-	"github.com/gophercloud/gophercloud/acceptance/tools"
-	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/subnetpools"
-	th "github.com/gophercloud/gophercloud/testhelper"
+	"github.com/inspurDTest/gophercloud"
+	"github.com/inspurDTest/gophercloud/acceptance/tools"
+	"github.com/inspurDTest/gophercloud/openstack/networking/v2/extensions/subnetpools"
+	th "github.com/inspurDTest/gophercloud/testhelper"
 )
 
 // CreateSubnetPool will create a subnetpool. An error will be returned if the

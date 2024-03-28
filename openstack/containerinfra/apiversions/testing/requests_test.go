@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/gophercloud/gophercloud/openstack/containerinfra/apiversions"
-	th "github.com/gophercloud/gophercloud/testhelper"
-	"github.com/gophercloud/gophercloud/testhelper/client"
+	"github.com/inspurDTest/gophercloud/openstack/containerinfra/apiversions"
+	th "github.com/inspurDTest/gophercloud/testhelper"
+	"github.com/inspurDTest/gophercloud/testhelper/client"
 )
 
 func TestListAPIVersions(t *testing.T) {

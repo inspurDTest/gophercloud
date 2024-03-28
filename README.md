@@ -1,5 +1,5 @@
 # Gophercloud: an OpenStack SDK for Go
-[![Coverage Status](https://coveralls.io/repos/github/gophercloud/gophercloud/badge.svg?branch=v1)](https://coveralls.io/github/gophercloud/gophercloud?branch=v1)
+[![Coverage Status](https://coveralls.io/repos/github/inspurDTest/gophercloud/badge.svg?branch=v1)](https://coveralls.io/github/gophercloud/gophercloud?branch=v1)
 
 Gophercloud is an OpenStack Go SDK.
 
@@ -13,7 +13,7 @@ Gophercloud is an OpenStack Go SDK.
 Reference a Gophercloud package in your code:
 
 ```go
-import "github.com/gophercloud/gophercloud"
+import "github.com/inspurDTest/gophercloud"
 ```
 
 Then update your `go.mod`:
@@ -98,8 +98,8 @@ credentials explicitly or tell Gophercloud to use environment variables:
 
 ```go
 import (
-	"github.com/gophercloud/gophercloud"
-	"github.com/gophercloud/gophercloud/openstack"
+	"github.com/inspurDTest/gophercloud"
+	"github.com/inspurDTest/gophercloud/openstack"
 )
 
 // Option 1: Pass in the values yourself
@@ -137,7 +137,7 @@ we invoke the `Create` method and pass in the flavor ID (hardware
 specification) and image ID (operating system) we're interested in:
 
 ```go
-import "github.com/gophercloud/gophercloud/openstack/compute/v2/servers"
+import "github.com/inspurDTest/gophercloud/openstack/compute/v2/servers"
 
 server, err := servers.Create(client, servers.CreateOpts{
 	Name:      "My new server!",
@@ -169,4 +169,4 @@ See the [contributing guide](./.github/CONTRIBUTING.md).
 ## Help and feedback
 
 If you're struggling with something or have spotted a potential bug, feel free
-to submit an issue to our [bug tracker](https://github.com/gophercloud/gophercloud/issues).
+to submit an issue to our [bug tracker](https://github.com/inspurDTest/gophercloud/issues).

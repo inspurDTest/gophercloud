@@ -1,6 +1,6 @@
 package groups
 
-import "github.com/gophercloud/gophercloud"
+import "github.com/inspurDTest/gophercloud"
 
 func listURL(client *gophercloud.ServiceClient) string {
 	return client.ServiceURL("groups")

@@ -1,6 +1,6 @@
 package l7policies
 
-import "github.com/gophercloud/gophercloud"
+import "github.com/inspurDTest/gophercloud"
 
 const (
 	rootPath     = "lbaas"

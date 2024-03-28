@@ -7,10 +7,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gophercloud/gophercloud"
-	transferRequests "github.com/gophercloud/gophercloud/openstack/dns/v2/transfer/request"
-	th "github.com/gophercloud/gophercloud/testhelper"
-	"github.com/gophercloud/gophercloud/testhelper/client"
+	"github.com/inspurDTest/gophercloud"
+	transferRequests "github.com/inspurDTest/gophercloud/openstack/dns/v2/transfer/request"
+	th "github.com/inspurDTest/gophercloud/testhelper"
+	"github.com/inspurDTest/gophercloud/testhelper/client"
 )
 
 // ListOutput is a sample response to a List call.

@@ -1,7 +1,7 @@
 package diagnostics
 
 import (
-	"github.com/gophercloud/gophercloud"
+	"github.com/inspurDTest/gophercloud"
 )
 
 // Diagnostics

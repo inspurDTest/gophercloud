@@ -8,10 +8,10 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/gophercloud/gophercloud/acceptance/clients"
-	"github.com/gophercloud/gophercloud/acceptance/tools"
-	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/fwaas_v2/rules"
-	th "github.com/gophercloud/gophercloud/testhelper"
+	"github.com/inspurDTest/gophercloud/acceptance/clients"
+	"github.com/inspurDTest/gophercloud/acceptance/tools"
+	"github.com/inspurDTest/gophercloud/openstack/networking/v2/extensions/fwaas_v2/rules"
+	th "github.com/inspurDTest/gophercloud/testhelper"
 )
 
 func TestRuleCRUD(t *testing.T) {

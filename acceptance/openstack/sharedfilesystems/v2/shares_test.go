@@ -6,10 +6,10 @@ package v2
 import (
 	"testing"
 
-	"github.com/gophercloud/gophercloud/acceptance/clients"
-	"github.com/gophercloud/gophercloud/acceptance/tools"
-	"github.com/gophercloud/gophercloud/openstack/sharedfilesystems/v2/shares"
-	th "github.com/gophercloud/gophercloud/testhelper"
+	"github.com/inspurDTest/gophercloud/acceptance/clients"
+	"github.com/inspurDTest/gophercloud/acceptance/tools"
+	"github.com/inspurDTest/gophercloud/openstack/sharedfilesystems/v2/shares"
+	th "github.com/inspurDTest/gophercloud/testhelper"
 )
 
 func TestShareCreate(t *testing.T) {

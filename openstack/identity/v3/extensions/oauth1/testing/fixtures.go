@@ -6,10 +6,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gophercloud/gophercloud/openstack/identity/v3/extensions/oauth1"
-	tokens "github.com/gophercloud/gophercloud/openstack/identity/v3/tokens/testing"
-	"github.com/gophercloud/gophercloud/testhelper"
-	"github.com/gophercloud/gophercloud/testhelper/client"
+	"github.com/inspurDTest/gophercloud/openstack/identity/v3/extensions/oauth1"
+	tokens "github.com/inspurDTest/gophercloud/openstack/identity/v3/tokens/testing"
+	"github.com/inspurDTest/gophercloud/testhelper"
+	"github.com/inspurDTest/gophercloud/testhelper/client"
 )
 
 const CreateConsumerRequest = `

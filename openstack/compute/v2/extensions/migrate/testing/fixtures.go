@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"testing"
 
-	th "github.com/gophercloud/gophercloud/testhelper"
-	"github.com/gophercloud/gophercloud/testhelper/client"
+	th "github.com/inspurDTest/gophercloud/testhelper"
+	"github.com/inspurDTest/gophercloud/testhelper/client"
 )
 
 func mockMigrateResponse(t *testing.T, id string) {

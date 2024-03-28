@@ -1,6 +1,6 @@
 package quotas
 
-import "github.com/gophercloud/gophercloud"
+import "github.com/inspurDTest/gophercloud"
 
 const resourcePath = "quotas"
 

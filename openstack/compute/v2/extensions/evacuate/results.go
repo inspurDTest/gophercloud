@@ -1,7 +1,7 @@
 package evacuate
 
 import (
-	"github.com/gophercloud/gophercloud"
+	"github.com/inspurDTest/gophercloud"
 )
 
 // EvacuateResult is the response from an Evacuate operation.

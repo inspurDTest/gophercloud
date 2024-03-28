@@ -8,13 +8,13 @@ import (
 	"os"
 	"testing"
 
-	"github.com/gophercloud/gophercloud"
-	"github.com/gophercloud/gophercloud/acceptance/tools"
-	"github.com/gophercloud/gophercloud/openstack/imageservice/v2/imagedata"
-	"github.com/gophercloud/gophercloud/openstack/imageservice/v2/imageimport"
-	"github.com/gophercloud/gophercloud/openstack/imageservice/v2/images"
-	"github.com/gophercloud/gophercloud/openstack/imageservice/v2/tasks"
-	th "github.com/gophercloud/gophercloud/testhelper"
+	"github.com/inspurDTest/gophercloud"
+	"github.com/inspurDTest/gophercloud/acceptance/tools"
+	"github.com/inspurDTest/gophercloud/openstack/imageservice/v2/imagedata"
+	"github.com/inspurDTest/gophercloud/openstack/imageservice/v2/imageimport"
+	"github.com/inspurDTest/gophercloud/openstack/imageservice/v2/images"
+	"github.com/inspurDTest/gophercloud/openstack/imageservice/v2/tasks"
+	th "github.com/inspurDTest/gophercloud/testhelper"
 )
 
 // CreateEmptyImage will create an image, but with no actual image data.

@@ -4,10 +4,10 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/gophercloud/gophercloud/openstack/dns/v2/recordsets"
-	"github.com/gophercloud/gophercloud/pagination"
-	th "github.com/gophercloud/gophercloud/testhelper"
-	"github.com/gophercloud/gophercloud/testhelper/client"
+	"github.com/inspurDTest/gophercloud/openstack/dns/v2/recordsets"
+	"github.com/inspurDTest/gophercloud/pagination"
+	th "github.com/inspurDTest/gophercloud/testhelper"
+	"github.com/inspurDTest/gophercloud/testhelper/client"
 )
 
 func TestListByZone(t *testing.T) {

@@ -1,6 +1,6 @@
 package sharetransfers
 
-import "github.com/gophercloud/gophercloud"
+import "github.com/inspurDTest/gophercloud"
 
 func transferURL(c *gophercloud.ServiceClient) string {
 	return c.ServiceURL("share-transfers")

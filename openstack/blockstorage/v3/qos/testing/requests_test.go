@@ -4,10 +4,10 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/gophercloud/gophercloud/openstack/blockstorage/v3/qos"
-	"github.com/gophercloud/gophercloud/pagination"
-	th "github.com/gophercloud/gophercloud/testhelper"
-	"github.com/gophercloud/gophercloud/testhelper/client"
+	"github.com/inspurDTest/gophercloud/openstack/blockstorage/v3/qos"
+	"github.com/inspurDTest/gophercloud/pagination"
+	th "github.com/inspurDTest/gophercloud/testhelper"
+	"github.com/inspurDTest/gophercloud/testhelper/client"
 )
 
 func TestCreate(t *testing.T) {

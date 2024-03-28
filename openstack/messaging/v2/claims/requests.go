@@ -1,7 +1,7 @@
 package claims
 
 import (
-	"github.com/gophercloud/gophercloud"
+	"github.com/inspurDTest/gophercloud"
 )
 
 // CreateOptsBuilder Builder.

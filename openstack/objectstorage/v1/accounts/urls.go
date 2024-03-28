@@ -1,6 +1,6 @@
 package accounts
 
-import "github.com/gophercloud/gophercloud"
+import "github.com/inspurDTest/gophercloud"
 
 func getURL(c *gophercloud.ServiceClient) string {
 	return c.Endpoint

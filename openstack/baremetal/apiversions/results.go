@@ -1,7 +1,7 @@
 package apiversions
 
 import (
-	"github.com/gophercloud/gophercloud"
+	"github.com/inspurDTest/gophercloud"
 )
 
 // APIVersions represents the result from getting a list of all versions available

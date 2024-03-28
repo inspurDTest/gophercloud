@@ -9,7 +9,7 @@
 ## New Contributor Tutorial
 
 For new contributors, we've put together a detailed tutorial
-[here](https://github.com/gophercloud/gophercloud/tree/master/docs/contributor-tutorial)!
+[here](https://github.com/inspurDTest/gophercloud/tree/master/docs/contributor-tutorial)!
 
 ## 3 ways to get involved
 
@@ -20,7 +20,7 @@ each is described briefly below.
 
 If you want to start fixing open bugs, we'd really appreciate that! Bug fixing
 is central to any project. The best way to get started is by heading to our
-[bug tracker](https://github.com/gophercloud/gophercloud/issues) and finding open
+[bug tracker](https://github.com/inspurDTest/gophercloud/issues) and finding open
 bugs that you think nobody is working on. It might be useful to comment on the
 thread to see the current state of the issue and if anybody has made any
 breakthroughs on it so far.
@@ -107,7 +107,7 @@ need to checkout a new feature branch:
    git commit
    ```
 
-7. Submit your branch as a [Pull Request](https://help.github.com/articles/creating-a-pull-request/). When submitting a Pull Request, please follow our [Style Guide](https://github.com/gophercloud/gophercloud/blob/master/docs/STYLEGUIDE.md).
+7. Submit your branch as a [Pull Request](https://help.github.com/articles/creating-a-pull-request/). When submitting a Pull Request, please follow our [Style Guide](https://github.com/inspurDTest/gophercloud/blob/master/docs/STYLEGUIDE.md).
 
 > Further information about using Git can be found [here](https://git-scm.com/book/en/v2).
 
@@ -136,7 +136,7 @@ process of testing expectations with assertions:
 import (
   "testing"
 
-  "github.com/gophercloud/gophercloud/testhelper"
+  "github.com/inspurDTest/gophercloud/testhelper"
 )
 
 func TestSomething(t *testing.T) {
@@ -162,9 +162,9 @@ Here is a truncated example of mocked HTTP responses:
 import (
 	"testing"
 
-	th "github.com/gophercloud/gophercloud/testhelper"
-	fake "github.com/gophercloud/gophercloud/testhelper/client"
-	"github.com/gophercloud/gophercloud/openstack/networking/v2/networks"
+	th "github.com/inspurDTest/gophercloud/testhelper"
+	fake "github.com/inspurDTest/gophercloud/testhelper/client"
+	"github.com/inspurDTest/gophercloud/openstack/networking/v2/networks"
 )
 
 func TestGet(t *testing.T) {

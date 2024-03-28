@@ -4,8 +4,8 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/gophercloud/gophercloud"
-	"github.com/gophercloud/gophercloud/openstack/utils"
+	"github.com/inspurDTest/gophercloud"
+	"github.com/inspurDTest/gophercloud/openstack/utils"
 )
 
 const resourcePath = "tasks"

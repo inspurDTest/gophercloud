@@ -71,7 +71,7 @@ Create a PR with these two changes. The new PR should be labeled with the semver
 
 The Go mod system relies on Git tags. In order to simulate a review mechanism, we rely on Github to create the tag through the Release mechanism.
 
-* [Prepare a new release](https://github.com/gophercloud/gophercloud/releases/new)
+* [Prepare a new release](https://github.com/inspurDTest/gophercloud/releases/new)
 * Let Github generate the  release notes by clicking on Generate release notes
 * Click on **Save draft**
 * Ask another Gophercloud maintainer to review and publish the release

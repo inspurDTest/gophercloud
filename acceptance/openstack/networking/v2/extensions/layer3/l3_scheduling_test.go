@@ -6,13 +6,13 @@ package layer3
 import (
 	"testing"
 
-	"github.com/gophercloud/gophercloud/acceptance/clients"
-	networking "github.com/gophercloud/gophercloud/acceptance/openstack/networking/v2"
-	"github.com/gophercloud/gophercloud/acceptance/tools"
-	"github.com/gophercloud/gophercloud/openstack/common/extensions"
-	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/agents"
-	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/layer3/routers"
-	th "github.com/gophercloud/gophercloud/testhelper"
+	"github.com/inspurDTest/gophercloud/acceptance/clients"
+	networking "github.com/inspurDTest/gophercloud/acceptance/openstack/networking/v2"
+	"github.com/inspurDTest/gophercloud/acceptance/tools"
+	"github.com/inspurDTest/gophercloud/openstack/common/extensions"
+	"github.com/inspurDTest/gophercloud/openstack/networking/v2/extensions/agents"
+	"github.com/inspurDTest/gophercloud/openstack/networking/v2/extensions/layer3/routers"
+	th "github.com/inspurDTest/gophercloud/testhelper"
 )
 
 func TestLayer3RouterScheduling(t *testing.T) {

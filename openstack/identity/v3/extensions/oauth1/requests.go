@@ -13,9 +13,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/gophercloud/gophercloud"
-	"github.com/gophercloud/gophercloud/openstack/identity/v3/tokens"
-	"github.com/gophercloud/gophercloud/pagination"
+	"github.com/inspurDTest/gophercloud"
+	"github.com/inspurDTest/gophercloud/openstack/identity/v3/tokens"
+	"github.com/inspurDTest/gophercloud/pagination"
 )
 
 // Type SignatureMethod is a OAuth1 SignatureMethod type.

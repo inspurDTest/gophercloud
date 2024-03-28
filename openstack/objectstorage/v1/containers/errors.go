@@ -1,6 +1,6 @@
 package containers
 
-import "github.com/gophercloud/gophercloud"
+import "github.com/inspurDTest/gophercloud"
 
 // ErrInvalidContainerName signals a container name containing an illegal
 // character.

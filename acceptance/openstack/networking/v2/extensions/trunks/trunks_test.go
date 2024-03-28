@@ -7,13 +7,13 @@ import (
 	"sort"
 	"testing"
 
-	"github.com/gophercloud/gophercloud/acceptance/clients"
-	v2 "github.com/gophercloud/gophercloud/acceptance/openstack/networking/v2"
-	"github.com/gophercloud/gophercloud/acceptance/tools"
-	"github.com/gophercloud/gophercloud/openstack/common/extensions"
-	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/attributestags"
-	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/trunks"
-	th "github.com/gophercloud/gophercloud/testhelper"
+	"github.com/inspurDTest/gophercloud/acceptance/clients"
+	v2 "github.com/inspurDTest/gophercloud/acceptance/openstack/networking/v2"
+	"github.com/inspurDTest/gophercloud/acceptance/tools"
+	"github.com/inspurDTest/gophercloud/openstack/common/extensions"
+	"github.com/inspurDTest/gophercloud/openstack/networking/v2/extensions/attributestags"
+	"github.com/inspurDTest/gophercloud/openstack/networking/v2/extensions/trunks"
+	th "github.com/inspurDTest/gophercloud/testhelper"
 )
 
 func TestTrunkCRUD(t *testing.T) {

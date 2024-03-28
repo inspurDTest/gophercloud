@@ -1,7 +1,7 @@
 package quotas
 
 import (
-	"github.com/gophercloud/gophercloud"
+	"github.com/inspurDTest/gophercloud"
 )
 
 var apiName = "quotas"

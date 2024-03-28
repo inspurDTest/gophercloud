@@ -1,8 +1,8 @@
 package objects
 
 import (
-	"github.com/gophercloud/gophercloud"
-	"github.com/gophercloud/gophercloud/openstack/objectstorage/v1/containers"
+	"github.com/inspurDTest/gophercloud"
+	"github.com/inspurDTest/gophercloud/openstack/objectstorage/v1/containers"
 )
 
 func listURL(c *gophercloud.ServiceClient, container string) (string, error) {

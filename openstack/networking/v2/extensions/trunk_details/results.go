@@ -1,7 +1,7 @@
 package trunk_details
 
 import (
-	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/trunks"
+	"github.com/inspurDTest/gophercloud/openstack/networking/v2/extensions/trunks"
 )
 
 // TrunkDetailsExt represents additional trunking information returned in a

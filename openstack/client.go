@@ -5,13 +5,13 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/gophercloud/gophercloud"
-	tokens2 "github.com/gophercloud/gophercloud/openstack/identity/v2/tokens"
-	tokeniam "github.com/gophercloud/gophercloud/openstack/identity/iam/tokens"
-	"github.com/gophercloud/gophercloud/openstack/identity/v3/extensions/ec2tokens"
-	"github.com/gophercloud/gophercloud/openstack/identity/v3/extensions/oauth1"
-	tokens3 "github.com/gophercloud/gophercloud/openstack/identity/v3/tokens"
-	"github.com/gophercloud/gophercloud/openstack/utils"
+	"github.com/inspurDTest/gophercloud"
+	tokens2 "github.com/inspurDTest/gophercloud/openstack/identity/v2/tokens"
+	tokeniam "github.com/inspurDTest/gophercloud/openstack/identity/iam/tokens"
+	"github.com/inspurDTest/gophercloud/openstack/identity/v3/extensions/ec2tokens"
+	"github.com/inspurDTest/gophercloud/openstack/identity/v3/extensions/oauth1"
+	tokens3 "github.com/inspurDTest/gophercloud/openstack/identity/v3/tokens"
+	"github.com/inspurDTest/gophercloud/openstack/utils"
 	"k8s.io/klog/v2"
 )
 

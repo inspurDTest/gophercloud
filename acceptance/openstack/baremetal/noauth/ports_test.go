@@ -6,12 +6,12 @@ package noauth
 import (
 	"testing"
 
-	"github.com/gophercloud/gophercloud/acceptance/clients"
-	v1 "github.com/gophercloud/gophercloud/acceptance/openstack/baremetal/v1"
-	"github.com/gophercloud/gophercloud/openstack/baremetal/v1/ports"
-	"github.com/gophercloud/gophercloud/pagination"
+	"github.com/inspurDTest/gophercloud/acceptance/clients"
+	v1 "github.com/inspurDTest/gophercloud/acceptance/openstack/baremetal/v1"
+	"github.com/inspurDTest/gophercloud/openstack/baremetal/v1/ports"
+	"github.com/inspurDTest/gophercloud/pagination"
 
-	th "github.com/gophercloud/gophercloud/testhelper"
+	th "github.com/inspurDTest/gophercloud/testhelper"
 )
 
 func TestPortsCreateDestroy(t *testing.T) {

@@ -1,6 +1,6 @@
 package messages
 
-import "github.com/gophercloud/gophercloud"
+import "github.com/inspurDTest/gophercloud"
 
 func listURL(c *gophercloud.ServiceClient) string {
 	return c.ServiceURL("messages")

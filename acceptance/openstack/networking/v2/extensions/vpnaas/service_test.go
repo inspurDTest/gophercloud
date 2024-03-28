@@ -6,11 +6,11 @@ package vpnaas
 import (
 	"testing"
 
-	"github.com/gophercloud/gophercloud/acceptance/clients"
-	layer3 "github.com/gophercloud/gophercloud/acceptance/openstack/networking/v2/extensions/layer3"
-	"github.com/gophercloud/gophercloud/acceptance/tools"
-	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/vpnaas/services"
-	th "github.com/gophercloud/gophercloud/testhelper"
+	"github.com/inspurDTest/gophercloud/acceptance/clients"
+	layer3 "github.com/inspurDTest/gophercloud/acceptance/openstack/networking/v2/extensions/layer3"
+	"github.com/inspurDTest/gophercloud/acceptance/tools"
+	"github.com/inspurDTest/gophercloud/openstack/networking/v2/extensions/vpnaas/services"
+	th "github.com/inspurDTest/gophercloud/testhelper"
 )
 
 func TestServiceList(t *testing.T) {

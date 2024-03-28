@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/gophercloud/gophercloud"
-	"github.com/gophercloud/gophercloud/pagination"
+	"github.com/inspurDTest/gophercloud"
+	"github.com/inspurDTest/gophercloud/pagination"
 )
 
 // CreateOptsBuilder is the interface options structs have to satisfy in order

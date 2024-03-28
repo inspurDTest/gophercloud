@@ -6,14 +6,14 @@ package trunk_details
 import (
 	"testing"
 
-	"github.com/gophercloud/gophercloud/acceptance/clients"
-	v2 "github.com/gophercloud/gophercloud/acceptance/openstack/networking/v2"
-	v2Trunks "github.com/gophercloud/gophercloud/acceptance/openstack/networking/v2/extensions/trunks"
-	"github.com/gophercloud/gophercloud/openstack/common/extensions"
-	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/trunk_details"
-	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/trunks"
-	"github.com/gophercloud/gophercloud/openstack/networking/v2/ports"
-	th "github.com/gophercloud/gophercloud/testhelper"
+	"github.com/inspurDTest/gophercloud/acceptance/clients"
+	v2 "github.com/inspurDTest/gophercloud/acceptance/openstack/networking/v2"
+	v2Trunks "github.com/inspurDTest/gophercloud/acceptance/openstack/networking/v2/extensions/trunks"
+	"github.com/inspurDTest/gophercloud/openstack/common/extensions"
+	"github.com/inspurDTest/gophercloud/openstack/networking/v2/extensions/trunk_details"
+	"github.com/inspurDTest/gophercloud/openstack/networking/v2/extensions/trunks"
+	"github.com/inspurDTest/gophercloud/openstack/networking/v2/ports"
+	th "github.com/inspurDTest/gophercloud/testhelper"
 )
 
 type portWithTrunkDetails struct {

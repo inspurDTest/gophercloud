@@ -3,8 +3,8 @@ package request
 import (
 	"net/http"
 
-	"github.com/gophercloud/gophercloud"
-	"github.com/gophercloud/gophercloud/pagination"
+	"github.com/inspurDTest/gophercloud"
+	"github.com/inspurDTest/gophercloud/pagination"
 )
 
 // ListOptsBuilder allows extensions to add parameters to the List request.
