@@ -44,6 +44,9 @@ func (client *ServiceClient) ResourceBaseURL() string {
 
 // ServiceURL constructs a URL for a resource belonging to this provider.
 func (client *ServiceClient) ServiceURL(parts ...string) string {
+	if  strings.Contains(client.ResourceBaseURL(),"/openid-connect"){
+		return client.ResourceBaseURL()
+	}
 	return client.ResourceBaseURL() + strings.Join(parts, "/")
 }
 
