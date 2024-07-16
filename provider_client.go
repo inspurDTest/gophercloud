@@ -3,6 +3,7 @@ package gophercloud
 import (
 	"bytes"
 	"context"
+	"crypto/tls"
 	"encoding/json"
 	"errors"
 	"io"
@@ -429,6 +430,10 @@ func (client *ProviderClient) doRequest(method, url string, options *RequestOpts
 	}
 
 	prereqtok := req.Header.Get("X-Auth-Token")
+
+	client.HTTPClient.Transport = &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
 
 	// Issue the request.
 	resp, err := client.HTTPClient.Do(req)
