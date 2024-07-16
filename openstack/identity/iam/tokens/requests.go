@@ -98,6 +98,7 @@ func Create(client *gophercloud.ServiceClient, auth AuthOptionsBuilder) (r Creat
 		OmitHeaders: []string{"X-Auth-Token"},
 	})
 	klog.Infof("iamauth resp: %+v", resp)
+
 	_, r.Header, r.Err = gophercloud.ParseResponse(resp, err)
 	return
 }
