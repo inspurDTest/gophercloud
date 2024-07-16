@@ -407,7 +407,7 @@ func (client *ProviderClient) doRequest(method, url string, options *RequestOpts
 	// Apply options.MoreHeaders and options.OmitHeaders, to give the caller the chance to
 	// modify or omit any header.
 	if contentType != nil {
-		req.Header.Set("Content-Type", *contentType)
+		//req.Header.Set("Content-Type", *contentType)
 	}
 	req.Header.Set("Accept", applicationJSON)
 
