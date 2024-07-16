@@ -1,6 +1,9 @@
 package tokens
 
-import "github.com/inspurDTest/gophercloud"
+import (
+	"github.com/inspurDTest/gophercloud"
+	"k8s.io/klog/v2"
+)
 
 // PasswordCredentialsIAM represents the required options to authenticate
 // with a username and password.
@@ -94,6 +97,7 @@ func Create(client *gophercloud.ServiceClient, auth AuthOptionsBuilder) (r Creat
 		OkCodes:     []int{200, 203},
 		OmitHeaders: []string{"X-Auth-Token"},
 	})
+	klog.Infof("iamauth resp: %+v", resp)
 	_, r.Header, r.Err = gophercloud.ParseResponse(resp, err)
 	return
 }
