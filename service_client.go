@@ -2,6 +2,7 @@ package gophercloud
 
 import (
 	"io"
+	"k8s.io/klog/v2"
 	"net/http"
 	"strings"
 )
@@ -85,6 +86,7 @@ func (client *ServiceClient) Post(url string, JSONBody interface{}, JSONResponse
 		opts = new(RequestOpts)
 	}
 	client.initReqOpts(url, JSONBody, JSONResponse, opts)
+	klog.Infof("Post: %+v", opts.JSONBody.(map[string]interface{}))
 	return client.Request("POST", url, opts)
 }
 

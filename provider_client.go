@@ -6,13 +6,13 @@ import (
 	"crypto/tls"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"io/ioutil"
+	"k8s.io/klog/v2"
 	"net/http"
 	"strings"
 	"sync"
-	"fmt"
-	"k8s.io/klog/v2"
 )
 
 // DefaultUserAgent is the default User-Agent string set in the request header.
@@ -377,11 +377,15 @@ func (client *ProviderClient) doRequest(method, url string, options *RequestOpts
 		}
 
 		rendered, err := json.Marshal(options.JSONBody)
+		klog.Infof("doRequest-->rendered: %+v", string(rendered))
 		if err != nil {
 			return nil, err
 		}
 
 		body = bytes.NewReader(rendered)
+		// 使用 io.Copy 将数据复制到 os.Stdout
+		//_, err = io.Copy(os.Stdout, body)
+		//klog.Infof("doRequest-->body: %+v", os.Stdout)
 		contentType = &applicationJSON
 	}
 
@@ -393,7 +397,9 @@ func (client *ProviderClient) doRequest(method, url string, options *RequestOpts
 	if options.RawBody != nil {
 		body = options.RawBody
 	}
-
+	// 使用 io.Copy 将数据复制到 os.Stdout
+	//_, err := io.Copy(os.Stdout, body)
+	//klog.Infof("doRequest-->body2: %+v", os.Stdout)
 	// Construct the http.Request.
 	req, err := http.NewRequest(method, url, body)
 	if err != nil {
