@@ -79,8 +79,9 @@ func (opts AuthOptions) ToTokenIAMCreateMap() (map[string]interface{}, error) {
 			ID: opts.TokenID,
 		}
 	}
-
-	b, err := gophercloud.BuildRequestBody(v2Opts, "auth")
+	b, err := gophercloud.BuildRequestBody(v2Opts, "")
+	klog.Infof("ToTokenIAMCreateMap b: %+v", b)
+	//b, err := gophercloud.BuildRequestBody(v2Opts, "auth")
 	if err != nil {
 		return nil, err
 	}
