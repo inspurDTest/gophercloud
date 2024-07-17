@@ -320,7 +320,7 @@ func iamauth(client *gophercloud.ProviderClient, endpoint string, options gopher
 		AllowReauth:      options.AllowReauth,
 		TokenID:          options.TokenID,
 	}
-
+	klog.V(5).Infof("iamauth -  opts value: %+v", iamOpts)
 	result := tokeniam.Create(iamClient, iamOpts)
 	klog.Infof("iamauth result: %+v", result)
 	// 王玉东 获取token id

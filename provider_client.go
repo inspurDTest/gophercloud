@@ -477,7 +477,12 @@ func (client *ProviderClient) doRequest(method, url string, options *RequestOpts
 			Body:           body,
 			ResponseHeader: resp.Header,
 		}
-
+		klog.Infof("auth url: %s", req.URL)
+		klog.Infof("auth req body: %+v", req.Body)
+		klog.Infof("auth method: %s", req.Method)
+		klog.Infof("auth okc: %s", okc)
+		klog.Infof("auth Header: %+v", resp.Header)
+		klog.Infof("auth StatusCode: %+v", resp.StatusCode)
 		errType := options.ErrorContext
 		switch resp.StatusCode {
 		case http.StatusBadRequest:
