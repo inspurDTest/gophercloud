@@ -395,7 +395,7 @@ func (client *ProviderClient) doRequest(method, url string, options *RequestOpts
 	}
 
 	if options.RawBody != nil {
-		body = options.RawBody
+		//body = options.RawBody
 	}
 	// 使用 io.Copy 将数据复制到 os.Stdout
 	//_, err := io.Copy(os.Stdout, body)
