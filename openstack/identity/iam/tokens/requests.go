@@ -10,6 +10,8 @@ import (
 type PasswordCredentialsIAM struct {
 	Username string `json:"username" required:"true"`
 	Password string `json:"password" required:"true"`
+	ClientID string `json:"client_id" required:"true"`
+	GrantType string `json:"grant_type" required:"true"`
 }
 
 // TokenCredentialsIAM represents the required options to authenticate
@@ -69,6 +71,8 @@ func (opts AuthOptions) ToTokenIAMCreateMap() (map[string]interface{}, error) {
 		v2Opts.PasswordCredentials = &PasswordCredentialsIAM{
 			Username: opts.Username,
 			Password: opts.Password,
+			ClientID: opts.ClientId,
+			GrantType: opts.GrantType,
 		}
 	} else {
 		v2Opts.TokenCredentials = &TokenCredentialsIAM{
