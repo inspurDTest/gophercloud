@@ -24,7 +24,10 @@ type TokenCredentialsIAM struct {
 // AuthOptionsBuilder interface.
 type AuthOptionsIAM struct {
 	PasswordCredentials *PasswordCredentialsIAM `json:"passwordCredentials,omitempty" xor:"TokenCredentials"`
-
+	Username string `json:"username" required:"true"`
+	Password string `json:"password" required:"true"`
+	ClientID string `json:"client_id" required:"true"`
+	GrantType string `json:"grant_type" required:"true"`
 	// The TenantID and TenantName fields are optional for the Identity  API.
 	// Some providers allow you to specify a TenantName instead of the TenantId.
 	// Some require both. Your provider's authentication policies will determine
@@ -74,6 +77,10 @@ func (opts AuthOptions) ToTokenIAMCreateMap() (map[string]interface{}, error) {
 			ClientID: opts.ClientId,
 			GrantType: opts.GrantType,
 		}
+	      v2Opts.Username =  opts.Username
+		  v2Opts.Password =  opts.Password
+		  v2Opts.ClientID =  opts.ClientId
+		  v2Opts.GrantType = opts.GrantType
 	} else {
 		v2Opts.TokenCredentials = &TokenCredentialsIAM{
 			ID: opts.TokenID,
