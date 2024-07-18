@@ -1,12 +1,13 @@
 package gophercloud
 
 import (
-	"bytes"
+	_ "bytes"
 	"context"
 	"crypto/tls"
 	"encoding/json"
 	"errors"
 	"fmt"
+	"gopkg.in/mgo.v2/bson"
 	"io"
 	"io/ioutil"
 	"k8s.io/klog/v2"
@@ -17,7 +18,6 @@ import (
 	"strconv"
 	"strings"
 	"sync"
-	"gopkg.in/mgo.v2/bson"
 )
 type P map[string]interface{}
 
