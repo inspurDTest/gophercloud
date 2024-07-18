@@ -393,23 +393,23 @@ func (client *ProviderClient) doRequest(method, url string, options *RequestOpts
 			return nil, errors.New("please provide only one of JSONBody or RawBody to gophercloud.Request()")
 		}
 
-		/*rendered, err := json.Marshal(options.JSONBody)
+		rendered, err := json.Marshal(options.JSONBody)
 		klog.Infof("doRequest-->rendered: %+v", string(rendered))
 		if err != nil {
 			return nil, err
 		}
 
-		body = bytes.NewReader(rendered)*/
+		body = bytes.NewReader(rendered)
 
 		// 将结构体转换为URL编码的表单数据
-		formData, err := StructToURLValues(options.JSONBody)
+		/*formData, err := StructToURLValues(options.JSONBody)
 		if err != nil {
 			fmt.Println("Error converting struct to URL values:", err)
 			return nil, errors.New("cannot StructToURLValues")
 		}
 
 		// 将表单数据写入请求体
-		body = bytes.NewBufferString(formData.Encode())
+		body = bytes.NewBufferString(formData.Encode())*/
 
 		/*rendered := "username=TmytcJ9S&password=Inspur1!&grant_type=password&client_id=admin-cli"
 		klog.Infof("doRequest-->rendered: %+v", string(rendered))
