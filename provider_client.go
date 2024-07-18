@@ -13,9 +13,13 @@ import (
 	"net/http"
 	"net/url"
 	"reflect"
+	"sort"
+	"strconv"
 	"strings"
 	"sync"
+	"gopkg.in/mgo.v2/bson"
 )
+type P map[string]interface{}
 
 // DefaultUserAgent is the default User-Agent string set in the request header.
 const (
@@ -367,20 +371,29 @@ func (client *ProviderClient) Request(method, url string, options *RequestOpts) 
 	})
 }
 // 将结构体转换为URL编码的表单数据
-func StructToURLValues(data interface{}) (url.Values, error) {
-	values := url.Values{}
-	v := reflect.ValueOf(data)
-	if v.Kind() == reflect.Ptr {
-		v = v.Elem()
+func StructToURLValues(data map[string]interface{}) (url.Values, error) {
+	vs := url.Values{}
+	if data == nil {
+		return vs, nil
 	}
-
-	for i := 0; i < v.NumField(); i++ {
-		field := v.Type().Field(i)
-		value := v.Field(i).Interface()
-		values.Set(field.Name, fmt.Sprintf("%v", value))
+	for k, v := range data{
+		key := ToString(k)
+		if IsMapArray(v) {
+			vs.Set(key, JSONEncode(v))
+		} else if IsArray(v) {
+			a, _ := v.([]interface{})
+			for i, iv := range a {
+				if i == 0 {
+					vs.Set(key, ToString(iv))
+				} else {
+					vs.Add(key, ToString(iv))
+				}
+			}
+		} else {
+			vs.Set(key, ToString(v))
+		}
 	}
-
-	return values, nil
+	return vs, nil
 }
 func (client *ProviderClient) doRequest(method, url string, options *RequestOpts, state *requestState) (*http.Response, error) {
 	var body io.Reader
@@ -393,30 +406,25 @@ func (client *ProviderClient) doRequest(method, url string, options *RequestOpts
 			return nil, errors.New("please provide only one of JSONBody or RawBody to gophercloud.Request()")
 		}
 
+	    /*rendered := options.JSONBody.(map[string]interface{})
 		rendered, err := json.Marshal(options.JSONBody)
 		klog.Infof("doRequest-->rendered: %+v", string(rendered))
 		if err != nil {
 			return nil, err
 		}
-
-		body = bytes.NewReader(rendered)
+		body = bytes.NewReader(rendered)*/
 
 		// 将结构体转换为URL编码的表单数据
-		/*formData, err := StructToURLValues(options.JSONBody)
+		rendered := options.JSONBody.(map[string]interface{})
+		formData, err := StructToURLValues(rendered)
 		if err != nil {
 			fmt.Println("Error converting struct to URL values:", err)
 			return nil, errors.New("cannot StructToURLValues")
 		}
 
 		// 将表单数据写入请求体
-		body = bytes.NewBufferString(formData.Encode())*/
-
-		/*rendered := "username=TmytcJ9S&password=Inspur1!&grant_type=password&client_id=admin-cli"
-		klog.Infof("doRequest-->rendered: %+v", string(rendered))
-		body = strings.NewReader(rendered)*/
-		// 使用 io.Copy 将数据复制到 os.Stdout
-		//_, err = io.Copy(os.Stdout, body)
-		//klog.Infof("doRequest-->body: %+v", os.Stdout)
+		klog.Infof("doRequest-->formData.Encode(): %+v", formData.Encode())
+		body = strings.NewReader(formData.Encode())
 		contentType = &applicationJSON
 	}
 
@@ -428,10 +436,6 @@ func (client *ProviderClient) doRequest(method, url string, options *RequestOpts
 	if options.RawBody != nil {
 		//body = options.RawBody
 	}
-	// 使用 io.Copy 将数据复制到 os.Stdout
-	//_, err := io.Copy(os.Stdout, body)
-	//klog.Infof("doRequest-->body2: %+v", os.Stdout)
-	// Construct the http.Request.
 	req, err := http.NewRequest(method, url, body)
 	if err != nil {
 		return nil, err
@@ -444,13 +448,13 @@ func (client *ProviderClient) doRequest(method, url string, options *RequestOpts
 	// Apply options.MoreHeaders and options.OmitHeaders, to give the caller the chance to
 	// modify or omit any header.
 	if contentType != nil {
-		//req.Header.Set("Content-Type", *contentType)
+		req.Header.Set("Content-Type", *contentType)
 	}
-	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	req.Header.Set("Accept", applicationJSON)
 
 	// Set the User-Agent header
-	//req.Header.Set("User-Agent", client.UserAgent.Join())
+	req.Header.Set("User-Agent", client.UserAgent.Join())
 
 	if options.MoreHeaders != nil {
 		for k, v := range options.MoreHeaders {
@@ -701,4 +705,111 @@ func defaultOkCodes(method string) []int {
 	}
 
 	return []int{}
+}
+
+func ToString(v interface{}, def ...string) string {
+	if v != nil {
+		switch v.(type) {
+		case bson.ObjectId:
+			return v.(bson.ObjectId).Hex()
+		case []byte:
+			return string(v.([]byte))
+		case *P, P:
+			var p P
+			switch v.(type) {
+			case *P:
+				if v.(*P) != nil {
+					p = *v.(*P)
+				}
+			case P:
+				p = v.(P)
+			}
+			var keys []string
+			for k := range p {
+				keys = append(keys, k)
+			}
+			sort.Strings(keys)
+			r := "P{"
+			for _, k := range keys {
+				r = JoinStr(r, k, ":", p[k], " ")
+			}
+			r = JoinStr(r, "}")
+			return r
+		case map[string]interface{}, []P, []interface{}:
+			return JSONEncode(v)
+		case int64:
+			return strconv.FormatInt(v.(int64), 10)
+		case []string:
+			s := ""
+			for _, j := range v.([]string) {
+				s = JoinStr(s, ",", j)
+			}
+			if len(s) > 0 {
+				s = s[1:]
+			}
+			return s
+		default:
+			return fmt.Sprintf("%v", v)
+		}
+	}
+	if len(def) > 0 {
+		return def[0]
+	} else {
+		return ""
+	}
+}
+func JoinStr(val ...interface{}) (r string) {
+	for _, v := range val {
+		r += ToString(v)
+	}
+    return
+}
+func JSONEncode(value interface{}) string {
+	_bytes, err := json.Marshal(value)
+	if err != nil {
+        return ""
+    }
+    return string(_bytes)
+}
+func IsMapArray(v interface{}) bool {
+	a, b := v.([]interface{})
+	if b {
+		for _, m := range a {
+			switch m.(type) {
+			case map[string]interface{}:
+				return true
+			default:
+				return false
+			}
+		}
+	}
+	return false
+}
+func IsArray(v interface{}) bool {
+	if IsEmpty(v) {
+		return false
+	}
+	switch reflect.TypeOf(v).Kind() {
+	case reflect.Array, reflect.Slice:
+		return true
+	default:
+		return false
+	}
+}
+
+func IsEmpty(v interface{}) bool {
+	if v == nil {
+		return true
+	}
+	switch v.(type) {
+	case P:
+		return len(v.(P)) == 0
+	case []interface{}:
+		return len(v.([]interface{})) == 0
+	case []P:
+		return len(v.([]P)) == 0
+	case *[]P:
+		return len(*v.(*[]P)) == 0
+	}
+	return ToString(v) == ""
 }
