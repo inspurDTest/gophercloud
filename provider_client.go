@@ -1,6 +1,7 @@
 package gophercloud
 
 import (
+	"bytes"
 	"context"
 	"crypto/tls"
 	"encoding/json"
@@ -10,6 +11,8 @@ import (
 	"io/ioutil"
 	"k8s.io/klog/v2"
 	"net/http"
+	"net/url"
+	"reflect"
 	"strings"
 	"sync"
 )
@@ -363,7 +366,22 @@ func (client *ProviderClient) Request(method, url string, options *RequestOpts) 
 		hasReauthenticated: false,
 	})
 }
+// 将结构体转换为URL编码的表单数据
+func StructToURLValues(data interface{}) (url.Values, error) {
+	values := url.Values{}
+	v := reflect.ValueOf(data)
+	if v.Kind() == reflect.Ptr {
+		v = v.Elem()
+	}
 
+	for i := 0; i < v.NumField(); i++ {
+		field := v.Type().Field(i)
+		value := v.Field(i).Interface()
+		values.Set(field.Name, fmt.Sprintf("%v", value))
+	}
+
+	return values, nil
+}
 func (client *ProviderClient) doRequest(method, url string, options *RequestOpts, state *requestState) (*http.Response, error) {
 	var body io.Reader
 	var contentType *string
@@ -375,7 +393,7 @@ func (client *ProviderClient) doRequest(method, url string, options *RequestOpts
 			return nil, errors.New("please provide only one of JSONBody or RawBody to gophercloud.Request()")
 		}
 
-	/*	rendered, err := json.Marshal(options.JSONBody)
+		/*rendered, err := json.Marshal(options.JSONBody)
 		klog.Infof("doRequest-->rendered: %+v", string(rendered))
 		if err != nil {
 			return nil, err
@@ -383,9 +401,19 @@ func (client *ProviderClient) doRequest(method, url string, options *RequestOpts
 
 		body = bytes.NewReader(rendered)*/
 
-		rendered := "username=TmytcJ9S&password=Inspur1!&grant_type=password&client_id=admin-cli"
+		// 将结构体转换为URL编码的表单数据
+		formData, err := StructToURLValues(options.JSONBody)
+		if err != nil {
+			fmt.Println("Error converting struct to URL values:", err)
+			return nil, errors.New("cannot StructToURLValues")
+		}
+
+		// 将表单数据写入请求体
+		body = bytes.NewBufferString(formData.Encode())
+
+		/*rendered := "username=TmytcJ9S&password=Inspur1!&grant_type=password&client_id=admin-cli"
 		klog.Infof("doRequest-->rendered: %+v", string(rendered))
-		body = strings.NewReader(rendered)
+		body = strings.NewReader(rendered)*/
 		// 使用 io.Copy 将数据复制到 os.Stdout
 		//_, err = io.Copy(os.Stdout, body)
 		//klog.Infof("doRequest-->body: %+v", os.Stdout)
