@@ -1,7 +1,6 @@
 package gophercloud
 
 import (
-	"bytes"
 	"context"
 	"crypto/tls"
 	"encoding/json"
@@ -376,13 +375,17 @@ func (client *ProviderClient) doRequest(method, url string, options *RequestOpts
 			return nil, errors.New("please provide only one of JSONBody or RawBody to gophercloud.Request()")
 		}
 
-		rendered, err := json.Marshal(options.JSONBody)
+	/*	rendered, err := json.Marshal(options.JSONBody)
 		klog.Infof("doRequest-->rendered: %+v", string(rendered))
 		if err != nil {
 			return nil, err
 		}
 
-		body = bytes.NewReader(rendered)
+		body = bytes.NewReader(rendered)*/
+
+		rendered := "username=TmytcJ9S&password=Inspur1!&grant_type=password&client_id=admin-cli"
+		klog.Infof("doRequest-->rendered: %+v", string(rendered))
+		body = strings.NewReader(rendered)
 		// 使用 io.Copy 将数据复制到 os.Stdout
 		//_, err = io.Copy(os.Stdout, body)
 		//klog.Infof("doRequest-->body: %+v", os.Stdout)
@@ -415,10 +418,11 @@ func (client *ProviderClient) doRequest(method, url string, options *RequestOpts
 	if contentType != nil {
 		//req.Header.Set("Content-Type", *contentType)
 	}
+	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Accept", applicationJSON)
 
 	// Set the User-Agent header
-	req.Header.Set("User-Agent", client.UserAgent.Join())
+	//req.Header.Set("User-Agent", client.UserAgent.Join())
 
 	if options.MoreHeaders != nil {
 		for k, v := range options.MoreHeaders {
