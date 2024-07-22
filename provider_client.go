@@ -1,6 +1,7 @@
 package gophercloud
 
 import (
+	"bytes"
 	_ "bytes"
 	"context"
 	"crypto/tls"
@@ -348,6 +349,8 @@ type RequestOpts struct {
 	// KeepResponseBody specifies whether to keep the HTTP response body. Usually used, when the HTTP
 	// response body is considered for further use. Valid when JSONResponse is nil.
 	KeepResponseBody bool
+	// iam or others
+	Type string
 }
 
 // requestState contains temporary state for a single ProviderClient.Request() call.
@@ -366,6 +369,11 @@ var applicationJSON = "application/json"
 // Request performs an HTTP request using the ProviderClient's current HTTPClient. An authentication
 // header will automatically be provided.
 func (client *ProviderClient) Request(method, url string, options *RequestOpts) (*http.Response, error) {
+	if options.Type == "iamAuthentication" {
+		return client.doRequestIam(method, url, options, &requestState{
+			hasReauthenticated: false,
+		})
+	}
 	return client.doRequest(method, url, options, &requestState{
 		hasReauthenticated: false,
 	})
@@ -395,7 +403,7 @@ func StructToURLValues(data map[string]interface{}) (url.Values, error) {
 	}
 	return vs, nil
 }
-func (client *ProviderClient) doRequest(method, url string, options *RequestOpts, state *requestState) (*http.Response, error) {
+func (client *ProviderClient) doRequestIam(method, url string, options *RequestOpts, state *requestState) (*http.Response, error) {
 	var body io.Reader
 	var contentType *string
 
@@ -405,14 +413,6 @@ func (client *ProviderClient) doRequest(method, url string, options *RequestOpts
 		if options.RawBody != nil {
 			return nil, errors.New("please provide only one of JSONBody or RawBody to gophercloud.Request()")
 		}
-
-	    /*rendered := options.JSONBody.(map[string]interface{})
-		rendered, err := json.Marshal(options.JSONBody)
-		klog.Infof("doRequest-->rendered: %+v", string(rendered))
-		if err != nil {
-			return nil, err
-		}
-		body = bytes.NewReader(rendered)*/
 
 		// 将结构体转换为URL编码的表单数据
 		rendered := options.JSONBody.(map[string]interface{})
@@ -488,6 +488,280 @@ func (client *ProviderClient) doRequest(method, url string, options *RequestOpts
 				return nil, e
 			}
 
+			return client.doRequestIam(method, url, options, state)
+		}
+		return nil, err
+	}
+
+	// Allow default OkCodes if none explicitly set
+	okc := options.OkCodes
+	if okc == nil {
+		okc = defaultOkCodes(method)
+	}
+
+	// Validate the HTTP response status.
+	var ok bool
+	for _, code := range okc {
+		if resp.StatusCode == code {
+			ok = true
+			break
+		}
+	}
+
+	if !ok {
+		body, _ := ioutil.ReadAll(resp.Body)
+		resp.Body.Close()
+		respErr := ErrUnexpectedResponseCode{
+			URL:            url,
+			Method:         method,
+			Expected:       okc,
+			Actual:         resp.StatusCode,
+			Body:           body,
+			ResponseHeader: resp.Header,
+		}
+		errType := options.ErrorContext
+		switch resp.StatusCode {
+		case http.StatusBadRequest:
+			err = ErrDefault400{respErr}
+			if error400er, ok := errType.(Err400er); ok {
+				err = error400er.Error400(respErr)
+			}
+		case http.StatusUnauthorized:
+			if client.ReauthFunc != nil && !state.hasReauthenticated {
+				err = client.Reauthenticate(prereqtok)
+				if err != nil {
+					e := &ErrUnableToReauthenticate{}
+					e.ErrOriginal = respErr
+					e.ErrReauth = err
+					return nil, e
+				}
+				if options.RawBody != nil {
+					if seeker, ok := options.RawBody.(io.Seeker); ok {
+						seeker.Seek(0, 0)
+					}
+				}
+				state.hasReauthenticated = true
+				resp, err = client.doRequestIam(method, url, options, state)
+				if err != nil {
+					switch err.(type) {
+					case *ErrUnexpectedResponseCode:
+						e := &ErrErrorAfterReauthentication{}
+						e.ErrOriginal = err.(*ErrUnexpectedResponseCode)
+						return nil, e
+					default:
+						e := &ErrErrorAfterReauthentication{}
+						e.ErrOriginal = err
+						return nil, e
+					}
+				}
+				return resp, nil
+			}
+			err = ErrDefault401{respErr}
+			if error401er, ok := errType.(Err401er); ok {
+				err = error401er.Error401(respErr)
+			}
+		case http.StatusForbidden:
+			err = ErrDefault403{respErr}
+			if error403er, ok := errType.(Err403er); ok {
+				err = error403er.Error403(respErr)
+			}
+		case http.StatusNotFound:
+			err = ErrDefault404{respErr}
+			if error404er, ok := errType.(Err404er); ok {
+				err = error404er.Error404(respErr)
+			}
+		case http.StatusMethodNotAllowed:
+			err = ErrDefault405{respErr}
+			if error405er, ok := errType.(Err405er); ok {
+				err = error405er.Error405(respErr)
+			}
+		case http.StatusRequestTimeout:
+			err = ErrDefault408{respErr}
+			if error408er, ok := errType.(Err408er); ok {
+				err = error408er.Error408(respErr)
+			}
+		case http.StatusConflict:
+			err = ErrDefault409{respErr}
+			if error409er, ok := errType.(Err409er); ok {
+				err = error409er.Error409(respErr)
+			}
+		case http.StatusTooManyRequests, 498:
+			err = ErrDefault429{respErr}
+			if error429er, ok := errType.(Err429er); ok {
+				err = error429er.Error429(respErr)
+			}
+
+			maxTries := client.MaxBackoffRetries
+			if maxTries == 0 {
+				maxTries = DefaultMaxBackoffRetries
+			}
+
+			if f := client.RetryBackoffFunc; f != nil && state.retries < maxTries {
+				var e error
+
+				state.retries = state.retries + 1
+				e = f(client.Context, &respErr, err, state.retries)
+
+				if e != nil {
+					return resp, e
+				}
+
+				return client.doRequestIam(method, url, options, state)
+			}
+		case http.StatusInternalServerError:
+			err = ErrDefault500{respErr}
+			if error500er, ok := errType.(Err500er); ok {
+				err = error500er.Error500(respErr)
+			}
+		case http.StatusBadGateway:
+			err = ErrDefault502{respErr}
+			if error502er, ok := errType.(Err502er); ok {
+				err = error502er.Error502(respErr)
+			}
+		case http.StatusServiceUnavailable:
+			err = ErrDefault503{respErr}
+			if error503er, ok := errType.(Err503er); ok {
+				err = error503er.Error503(respErr)
+			}
+		case http.StatusGatewayTimeout:
+			err = ErrDefault504{respErr}
+			if error504er, ok := errType.(Err504er); ok {
+				err = error504er.Error504(respErr)
+			}
+		}
+
+		if err == nil {
+			err = respErr
+		}
+
+		if err != nil && client.RetryFunc != nil {
+			var e error
+			state.retries = state.retries + 1
+			e = client.RetryFunc(client.Context, method, url, options, err, state.retries)
+			if e != nil {
+				return resp, e
+			}
+
+			return client.doRequestIam(method, url, options, state)
+		}
+
+		return resp, err
+	}
+
+	// Parse the response body as JSON, if requested to do so.
+	if options.JSONResponse != nil {
+		defer resp.Body.Close()
+		// Don't decode JSON when there is no content
+		if resp.StatusCode == http.StatusNoContent {
+			// read till EOF, otherwise the connection will be closed and cannot be reused
+			_, err = io.Copy(ioutil.Discard, resp.Body)
+			return resp, err
+		}
+		if err := json.NewDecoder(resp.Body).Decode(options.JSONResponse); err != nil {
+			if client.RetryFunc != nil {
+				var e error
+				state.retries = state.retries + 1
+				e = client.RetryFunc(client.Context, method, url, options, err, state.retries)
+				if e != nil {
+					return resp, e
+				}
+
+				return client.doRequestIam(method, url, options, state)
+			}
+			return nil, err
+		}
+	}
+
+	// Close unused body to allow the HTTP connection to be reused
+	if !options.KeepResponseBody && options.JSONResponse == nil {
+		defer resp.Body.Close()
+		// read till EOF, otherwise the connection will be closed and cannot be reused
+		if _, err := io.Copy(ioutil.Discard, resp.Body); err != nil {
+			return nil, err
+		}
+	}
+
+	return resp, nil
+}
+
+
+func (client *ProviderClient) doRequest(method, url string, options *RequestOpts, state *requestState) (*http.Response, error) {
+	var body io.Reader
+	var contentType *string
+
+	// Derive the content body by either encoding an arbitrary object as JSON, or by taking a provided
+	// io.ReadSeeker as-is. Default the content-type to application/json.
+	if options.JSONBody != nil {
+		if options.RawBody != nil {
+			return nil, errors.New("please provide only one of JSONBody or RawBody to gophercloud.Request()")
+		}
+
+		rendered, err := json.Marshal(options.JSONBody)
+		if err != nil {
+			return nil, err
+		}
+
+		body = bytes.NewReader(rendered)
+		contentType = &applicationJSON
+	}
+
+	// Return an error, when "KeepResponseBody" is true and "JSONResponse" is not nil
+	if options.KeepResponseBody && options.JSONResponse != nil {
+		return nil, errors.New("cannot use KeepResponseBody when JSONResponse is not nil")
+	}
+
+	if options.RawBody != nil {
+		body = options.RawBody
+	}
+
+	// Construct the http.Request.
+	req, err := http.NewRequest(method, url, body)
+	if err != nil {
+		return nil, err
+	}
+	if client.Context != nil {
+		req = req.WithContext(client.Context)
+	}
+
+	// Populate the request headers.
+	// Apply options.MoreHeaders and options.OmitHeaders, to give the caller the chance to
+	// modify or omit any header.
+	if contentType != nil {
+		req.Header.Set("Content-Type", *contentType)
+	}
+	req.Header.Set("Accept", applicationJSON)
+
+	// Set the User-Agent header
+	req.Header.Set("User-Agent", client.UserAgent.Join())
+
+	if options.MoreHeaders != nil {
+		for k, v := range options.MoreHeaders {
+			req.Header.Set(k, v)
+		}
+	}
+
+	for _, v := range options.OmitHeaders {
+		req.Header.Del(v)
+	}
+
+	// get latest token from client
+	for k, v := range client.AuthenticatedHeaders() {
+		req.Header.Set(k, v)
+	}
+
+	prereqtok := req.Header.Get("X-Auth-Token")
+
+	// Issue the request.
+	resp, err := client.HTTPClient.Do(req)
+	if err != nil {
+		if client.RetryFunc != nil {
+			var e error
+			state.retries = state.retries + 1
+			e = client.RetryFunc(client.Context, method, url, options, err, state.retries)
+			if e != nil {
+				return nil, e
+			}
+
 			return client.doRequest(method, url, options, state)
 		}
 		return nil, err
@@ -519,12 +793,7 @@ func (client *ProviderClient) doRequest(method, url string, options *RequestOpts
 			Body:           body,
 			ResponseHeader: resp.Header,
 		}
-		klog.Infof("auth url: %s", req.URL)
-		klog.Infof("auth req body: %+v", req.Body)
-		klog.Infof("auth method: %s", req.Method)
-		klog.Infof("auth okc: %s", okc)
-		klog.Infof("auth Header: %+v", resp.Header)
-		klog.Infof("auth StatusCode: %+v", resp.StatusCode)
+
 		errType := options.ErrorContext
 		switch resp.StatusCode {
 		case http.StatusBadRequest:
@@ -689,6 +958,7 @@ func (client *ProviderClient) doRequest(method, url string, options *RequestOpts
 
 	return resp, nil
 }
+
 
 func defaultOkCodes(method string) []int {
 	switch method {

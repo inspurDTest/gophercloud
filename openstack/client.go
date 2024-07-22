@@ -476,6 +476,11 @@ func NewComputeV2(client *gophercloud.ProviderClient, eo gophercloud.EndpointOpt
 func NewNetworkV2(client *gophercloud.ProviderClient, eo gophercloud.EndpointOpts) (*gophercloud.ServiceClient, error) {
 	sc, err := initClientOpts(client, eo, "network")
 	sc.ResourceBase = sc.Endpoint + "v2.0/"
+
+	if len(sc.MoreHeaders) == 0 {
+		sc.MoreHeaders = map[string]string{}
+	}
+	sc.MoreHeaders["Authorization"] =  client.TokenID
 	return sc, err
 }
 
@@ -523,6 +528,10 @@ func NewDBV1(client *gophercloud.ProviderClient, eo gophercloud.EndpointOpts) (*
 func NewDNSV2(client *gophercloud.ProviderClient, eo gophercloud.EndpointOpts) (*gophercloud.ServiceClient, error) {
 	sc, err := initClientOpts(client, eo, "dns")
 	sc.ResourceBase = sc.Endpoint + "v2/"
+	if len(sc.MoreHeaders) == 0 {
+		sc.MoreHeaders = map[string]string{}
+	}
+	sc.MoreHeaders["Authorization"] =  client.TokenID
 	return sc, err
 }
 
@@ -531,6 +540,11 @@ func NewDNSV2(client *gophercloud.ProviderClient, eo gophercloud.EndpointOpts) (
 func NewImageServiceV2(client *gophercloud.ProviderClient, eo gophercloud.EndpointOpts) (*gophercloud.ServiceClient, error) {
 	sc, err := initClientOpts(client, eo, "image")
 	sc.ResourceBase = sc.Endpoint + "v2/"
+
+	if len(sc.MoreHeaders) == 0 {
+		sc.MoreHeaders = map[string]string{}
+	}
+	sc.MoreHeaders["Authorization"] =  client.TokenID
 	return sc, err
 }
 
@@ -543,6 +557,11 @@ func NewLoadBalancerV2(client *gophercloud.ProviderClient, eo gophercloud.Endpoi
 	endpoint := strings.Replace(sc.Endpoint, "v2.0/", "", -1)
 
 	sc.ResourceBase = endpoint + "v2.0/"
+
+	if len(sc.MoreHeaders) == 0 {
+		sc.MoreHeaders = map[string]string{}
+	}
+	sc.MoreHeaders["Authorization"] =  client.TokenID
 	return sc, err
 }
 

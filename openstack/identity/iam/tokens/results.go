@@ -1,6 +1,7 @@
 package tokens
 
 import (
+	"k8s.io/klog/v2"
 	"time"
 
 	"github.com/inspurDTest/gophercloud"
@@ -140,14 +141,11 @@ func (r CreateResult) ExtractToken() (*Token, error) {
 // ExtractToken().
 func (r CreateResult) ExtractTokenID() (string, error) {
 	var s struct {
-		Access struct {
-			Token struct {
-				ID string `json:"id"`
-			} `json:"token"`
-		} `json:"access"`
+		AccessToken string `json:"access_token"`
 	}
 	err := r.ExtractInto(&s)
-	return s.Access.Token.ID, err
+	klog.V(5).Infof("ExtractTokenID  s.AccessToken: %+s, err:", s.AccessToken,err.Error())
+	return s.AccessToken, err
 }
 
 // ExtractServiceCatalog returns the ServiceCatalog that was generated along
