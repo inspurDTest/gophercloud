@@ -55,6 +55,7 @@ type AuthOptions struct {
 	Username         string `json:"username,omitempty"`
 	Password         string `json:"password,omitempty"`
 	GrantType		 string `json:"grant_type,omitempty"`
+	OctaviaURL       string `json:"octavia_url,omitempty"`
 	ClientId         string `json:"client_id,omitempty"`
 	NetworkEndpoint  string	`json:"network_endpoint,omitempty"`
 	TenantID         string `json:"tenantId,omitempty"`

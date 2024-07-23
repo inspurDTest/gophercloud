@@ -96,6 +96,7 @@ type AuthOptions struct {
 
 	// 王玉东添加
 	GrantType string `json:"grant_type,omitempty"`
+	OctaviaURL  string `json:"octavia_url,omitempty"`
 	ClientId string `json:"client_id,omitempty"`
 	NetworkEndpoint string `json:"network_endpoint,omitempty"`
 

@@ -313,6 +313,7 @@ func iamauth(client *gophercloud.ProviderClient, endpoint string, options gopher
 		Username:         options.Username,
 		Password:         options.Password,
 		GrantType:        options.GrantType,
+		OctaviaURL:       options.OctaviaURL,
 		ClientId:         options.ClientId,
 		NetworkEndpoint:  options.NetworkEndpoint,
 		TenantID:         options.TenantID,
