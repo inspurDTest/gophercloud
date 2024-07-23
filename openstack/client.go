@@ -355,7 +355,11 @@ func iamauth(client *gophercloud.ProviderClient, endpoint string, options gopher
 		}
 	}
 	client.EndpointLocator = func(opts gophercloud.EndpointOpts) (string, error) {
-		return iamOpts.NetworkEndpoint, nil
+		if !strings.HasSuffix(iamOpts.OctaviaURL,"/"){
+			iamOpts.OctaviaURL = iamOpts.OctaviaURL + "/"
+		}
+		klog.Infof("iamOpts.OctaviaURL %s", iamOpts.OctaviaURL)
+		return iamOpts.OctaviaURL, nil
 	}
 
 	return nil
