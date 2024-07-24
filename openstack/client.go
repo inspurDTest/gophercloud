@@ -323,17 +323,17 @@ func iamauth(client *gophercloud.ProviderClient, endpoint string, options gopher
 	}
 	klog.V(5).Infof("iamauth -  opts value: %+v", iamOpts)
 	result := tokeniam.Create(iamClient, iamOpts)
-	klog.Infof("iamauth result: %+v", result)
+	klog.V(5).Infof("iamauth result: %+v", result)
 	// 王玉东 获取token id
 	err = client.SetTokenAndAuthResult(result)
 	if err != nil {
 		return err
 	}
-
-/*	catalog, err := result.ExtractServiceCatalog()
-	if err != nil {
-		return err
-	}*/
+	klog.V(5).Infof("iamOpts.OctaviaURL %s", iamOpts.OctaviaURL)
+	/*	catalog, err := result.ExtractServiceCatalog()
+		if err != nil {
+			return err
+		}*/
 
 	if options.AllowReauth {
 		// here we're creating a throw-away client (tac). it's a copy of the user's provider client, but
@@ -358,10 +358,10 @@ func iamauth(client *gophercloud.ProviderClient, endpoint string, options gopher
 		if !strings.HasSuffix(iamOpts.OctaviaURL,"/"){
 			iamOpts.OctaviaURL = iamOpts.OctaviaURL + "/"
 		}
-		klog.Infof("iamOpts.OctaviaURL %s", iamOpts.OctaviaURL)
+		klog.V(5).Infof("iamOpts.OctaviaURL %s", iamOpts.OctaviaURL)
 		return iamOpts.OctaviaURL, nil
 	}
-
+	klog.V(5).Infof("iamOpts.OctaviaURL %s", iamOpts.OctaviaURL)
 	return nil
 }
 

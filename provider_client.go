@@ -228,7 +228,7 @@ func (client *ProviderClient) SetTokenAndAuthResult(r AuthResult) error {
 	var err error
 	if r != nil {
 		tokenID, err = r.ExtractTokenID()
-		klog.Infof("auth result ID: %s", tokenID)
+		klog.V(5).Infof("auth result ID: %s", tokenID)
 		if err != nil {
 			return err
 		}
@@ -238,6 +238,7 @@ func (client *ProviderClient) SetTokenAndAuthResult(r AuthResult) error {
 		client.mut.Lock()
 		defer client.mut.Unlock()
 	}
+	klog.V(5).Infof("auth result ID: %s", tokenID)
 	client.TokenID = tokenID
 	client.authResult = r
 	return nil
