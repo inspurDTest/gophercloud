@@ -1,6 +1,9 @@
 package loadbalancers
 
-import "github.com/inspurDTest/gophercloud"
+import (
+	"github.com/inspurDTest/gophercloud"
+	"k8s.io/klog/v2"
+)
 
 const (
 	rootPath       = "lbaas"
@@ -15,6 +18,7 @@ func rootURL(c *gophercloud.ServiceClient) string {
 }
 
 func resourceURL(c *gophercloud.ServiceClient, id string) string {
+	klog.V(5).Infof("##resourceURL: %v", c.ServiceURL(rootPath, resourcePath, id))
 	return c.ServiceURL(rootPath, resourcePath, id)
 }
 

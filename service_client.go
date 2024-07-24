@@ -45,6 +45,7 @@ func (client *ServiceClient) ResourceBaseURL() string {
 
 // ServiceURL constructs a URL for a resource belonging to this provider.
 func (client *ServiceClient) ServiceURL(parts ...string) string {
+	klog.V(5).Infof("##ResourceBaseURL: %v", client.ResourceBaseURL())
 	if  strings.Contains(client.ResourceBaseURL(),"/openid-connect"){
 		return client.ResourceBaseURL()
 	}
