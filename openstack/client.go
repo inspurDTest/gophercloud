@@ -318,7 +318,7 @@ func iamauth(client *gophercloud.ProviderClient, endpoint string, options gopher
 		NetworkEndpoint:  options.NetworkEndpoint,
 		TenantID:         options.TenantID,
 		TenantName:       options.TenantName,
-		AllowReauth:      options.AllowReauth,
+		AllowReauth:      false,
 		TokenID:          options.TokenID,
 	}
 	klog.V(5).Infof("iamauth -  opts value: %+v", iamOpts)
