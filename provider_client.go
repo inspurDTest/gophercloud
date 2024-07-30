@@ -226,10 +226,11 @@ func (client *ProviderClient) SetToken(t string) {
 func (client *ProviderClient) SetTokenAndAuthResult(r AuthResult) error {
 	tokenID := ""
 	var err error
-	klog.V(5).Infof("## SetTokenAndAuthResult,r: %+v", r)
+	//klog.V(5).Infof("## SetTokenAndAuthResult,r: %+v", r)
+	klog.Infof("## SetTokenAndAuthResult,r: %+v", r)
 	if r != nil {
 		tokenID, err = r.ExtractTokenID()
-		klog.V(5).Infof("auth result ID: %s", tokenID)
+		klog.Infof("auth result ID: %s", tokenID)
 		if err != nil {
 			return err
 		}

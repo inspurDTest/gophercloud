@@ -144,7 +144,7 @@ func (r CreateResult) ExtractTokenID() (string, error) {
 		AccessToken string `json:"access_token"`
 	}
 	err := r.ExtractInto(&s)
-	klog.V(5).Infof("ExtractTokenID  s.AccessToken: %+s, err:", s.AccessToken,err.Error())
+	klog.Infof("ExtractTokenID  s.AccessToken: %+s, err:", s.AccessToken,err)
 	return s.AccessToken, err
 }
 
