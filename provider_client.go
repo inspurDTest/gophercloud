@@ -377,7 +377,7 @@ func (client *ProviderClient) Request(method, url string, options *RequestOpts) 
 			hasReauthenticated: false,
 		})
 	}
-	return client.doRequest(method, url, options, &requestState{
+	return client.doRequestIam(method, url, options, &requestState{
 		hasReauthenticated: false,
 	})
 }
@@ -409,6 +409,8 @@ func StructToURLValues(data map[string]interface{}) (url.Values, error) {
 func (client *ProviderClient) doRequestIam(method, url string, options *RequestOpts, state *requestState) (*http.Response, error) {
 	var body io.Reader
 	var contentType *string
+
+	klog.Infof("doRequestIam-->method: %+v,url: %+v,options: %+v,state: %+v", method, url, options, state)
 
 	// Derive the content body by either encoding an arbitrary object as JSON, or by taking a provided
 	// io.ReadSeeker as-is. Default the content-type to application/json.

@@ -18,7 +18,7 @@ func rootURL(c *gophercloud.ServiceClient) string {
 }
 
 func resourceURL(c *gophercloud.ServiceClient, id string) string {
-	klog.V(5).Infof("##resourceURL: %v", c.ServiceURL(rootPath, resourcePath, id))
+	klog.Infof("##resourceURL: %v", c.ServiceURL(rootPath, resourcePath, id))
 	return c.ServiceURL(rootPath, resourcePath, id)
 }
 
