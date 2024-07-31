@@ -377,7 +377,7 @@ func (client *ProviderClient) Request(method, url string, options *RequestOpts) 
 			hasReauthenticated: false,
 		})
 	}
-	return client.doRequestIam(method, url, options, &requestState{
+	return client.doRequest(method, url, options, &requestState{
 		hasReauthenticated: false,
 	})
 }
