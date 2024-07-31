@@ -299,6 +299,9 @@ func v3auth(client *gophercloud.ProviderClient, endpoint string, opts tokens3.Au
 	return nil
 }
 func iamauth(client *gophercloud.ProviderClient, endpoint string, options gophercloud.AuthOptions, eo gophercloud.EndpointOpts) error {
+	// 王玉东
+	klog.Infof("## begin auth from iam-->client: %+v,endpoint: %+v,options: %+v,eo: %+v", client, endpoint, options, eo)
+
 	iamClient, err := NewIdentityIAM(client, eo)
 	if err != nil {
 		return err
@@ -330,10 +333,6 @@ func iamauth(client *gophercloud.ProviderClient, endpoint string, options gopher
 		return err
 	}
 	klog.V(5).Infof("iamOpts.OctaviaURL %s", iamOpts.OctaviaURL)
-	/*	catalog, err := result.ExtractServiceCatalog()
-		if err != nil {
-			return err
-		}*/
 
 	if options.AllowReauth {
 		// here we're creating a throw-away client (tac). it's a copy of the user's provider client, but
@@ -346,7 +345,7 @@ func iamauth(client *gophercloud.ProviderClient, endpoint string, options gopher
 		tao := options
 		tao.AllowReauth = false
 		client.ReauthFunc = func() error {
-			err := v2auth(&tac, endpoint, tao, eo)
+			err := iamauth(&tac, endpoint, tao, eo)
 			if err != nil {
 				return err
 			}

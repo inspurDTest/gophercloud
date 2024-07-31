@@ -311,6 +311,7 @@ func (client *ProviderClient) Reauthenticate(previousToken string) error {
 	// Perform the actual reauthentication.
 	var err error
 	if previousToken == "" || client.TokenID == previousToken {
+		klog.Infof("## request octavia 401 --begin Reauth")
 		err = client.ReauthFunc()
 	} else {
 		err = nil
@@ -472,9 +473,9 @@ func (client *ProviderClient) doRequestIam(method, url string, options *RequestO
 	}
 
 	// get latest token from client
-	for k, v := range client.AuthenticatedHeaders() {
+	/*for k, v := range client.AuthenticatedHeaders() {
 		req.Header.Set(k, v)
-	}
+	}*/
 
 	prereqtok := req.Header.Get("X-Auth-Token")
 
@@ -693,6 +694,7 @@ func (client *ProviderClient) doRequestIam(method, url string, options *RequestO
 func (client *ProviderClient) doRequest(method, url string, options *RequestOpts, state *requestState) (*http.Response, error) {
 	var body io.Reader
 	var contentType *string
+	klog.Infof("doRequest-->method: %+v,url: %+v,options: %+v,state: %+v", method, url, options, state)
 
 	// Derive the content body by either encoding an arbitrary object as JSON, or by taking a provided
 	// io.ReadSeeker as-is. Default the content-type to application/json.
@@ -750,11 +752,11 @@ func (client *ProviderClient) doRequest(method, url string, options *RequestOpts
 	}
 
 	// get latest token from client
-	for k, v := range client.AuthenticatedHeaders() {
+	/*for k, v := range client.AuthenticatedHeaders() {
 		req.Header.Set(k, v)
-	}
+	}*/
 
-	prereqtok := req.Header.Get("X-Auth-Token")
+	prereqtok := req.Header.Get("X-Auth-Token-fake")
 
 	// Issue the request.
 	resp, err := client.HTTPClient.Do(req)
@@ -807,6 +809,8 @@ func (client *ProviderClient) doRequest(method, url string, options *RequestOpts
 				err = error400er.Error400(respErr)
 			}
 		case http.StatusUnauthorized:
+			klog.Infof("## request octavia 401")
+
 			if client.ReauthFunc != nil && !state.hasReauthenticated {
 				err = client.Reauthenticate(prereqtok)
 				if err != nil {
