@@ -819,6 +819,7 @@ func (client *ProviderClient) doRequest(method, url string, options *RequestOpts
 					e.ErrReauth = err
 					return nil, e
 				}
+				options.MoreHeaders["Authorization"] =  client.TokenID
 				if options.RawBody != nil {
 					if seeker, ok := options.RawBody.(io.Seeker); ok {
 						seeker.Seek(0, 0)
