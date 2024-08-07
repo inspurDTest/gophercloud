@@ -428,8 +428,8 @@ func (client *ProviderClient) doRequestIam(method, url string, options *RequestO
 			return nil, errors.New("cannot StructToURLValues")
 		}
 
-		// 将表单数据写入请求体
-		klog.Infof("doRequest-->formData.Encode(): %+v", formData.Encode())
+		// 将表单数据写入请求体，王玉东屏蔽
+		// klog.Infof("doRequest-->formData.Encode(): %+v", formData.Encode())
 		body = strings.NewReader(formData.Encode())
 		contentType = &applicationJSON
 	}
@@ -694,7 +694,8 @@ func (client *ProviderClient) doRequestIam(method, url string, options *RequestO
 func (client *ProviderClient) doRequest(method, url string, options *RequestOpts, state *requestState) (*http.Response, error) {
 	var body io.Reader
 	var contentType *string
-	klog.Infof("doRequest-->method: %+v,url: %+v,options: %+v,state: %+v", method, url, options, state)
+	// 王玉东屏蔽
+	//klog.Infof("doRequest-->method: %+v,url: %+v,options: %+v,state: %+v", method, url, options, state)
 
 	// Derive the content body by either encoding an arbitrary object as JSON, or by taking a provided
 	// io.ReadSeeker as-is. Default the content-type to application/json.
