@@ -421,6 +421,9 @@ type BatchUpdateMemberOpts struct {
 	// The port on which to listen for client traffic.
 	ProtocolPort int `json:"protocol_port" required:"true"`
 
+	// pod信息
+	ComputeId *string `json:"compute_id,omitempty"`
+
 	// Name of the Member.
 	Name *string `json:"name,omitempty"`
 
