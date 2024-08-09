@@ -227,10 +227,10 @@ func (client *ProviderClient) SetTokenAndAuthResult(r AuthResult) error {
 	tokenID := ""
 	var err error
 	//klog.V(5).Infof("## SetTokenAndAuthResult,r: %+v", r)
-	klog.Infof("## SetTokenAndAuthResult,r: %+v", r)
+//	klog.Infof("## SetTokenAndAuthResult,r: %+v", r)
 	if r != nil {
 		tokenID, err = r.ExtractTokenID()
-		klog.Infof("auth result ID: %s", tokenID)
+//		klog.Infof("auth result ID: %s", tokenID)
 		if err != nil {
 			return err
 		}
@@ -240,7 +240,7 @@ func (client *ProviderClient) SetTokenAndAuthResult(r AuthResult) error {
 		client.mut.Lock()
 		defer client.mut.Unlock()
 	}
-	klog.V(5).Infof("auth result ID: %s", tokenID)
+//	klog.V(5).Infof("auth result ID: %s", tokenID)
 	client.TokenID = tokenID
 	client.authResult = r
 	return nil
@@ -411,7 +411,7 @@ func (client *ProviderClient) doRequestIam(method, url string, options *RequestO
 	var body io.Reader
 	var contentType *string
 
-	klog.Infof("doRequestIam-->method: %+v,url: %+v,options: %+v,state: %+v", method, url, options, state)
+//	klog.Infof("doRequestIam-->method: %+v,url: %+v,options: %+v,state: %+v", method, url, options, state)
 
 	// Derive the content body by either encoding an arbitrary object as JSON, or by taking a provided
 	// io.ReadSeeker as-is. Default the content-type to application/json.

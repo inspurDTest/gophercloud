@@ -2,7 +2,6 @@ package gophercloud
 
 import (
 	"io"
-	"k8s.io/klog/v2"
 	"net/http"
 	"strings"
 )
@@ -45,7 +44,7 @@ func (client *ServiceClient) ResourceBaseURL() string {
 
 // ServiceURL constructs a URL for a resource belonging to this provider.
 func (client *ServiceClient) ServiceURL(parts ...string) string {
-	klog.V(5).Infof("##ResourceBaseURL: %v", client.ResourceBaseURL())
+	//klog.V(5).Infof("##ResourceBaseURL: %v", client.ResourceBaseURL())
 	if  strings.Contains(client.ResourceBaseURL(),"/openid-connect"){
 		return client.ResourceBaseURL()
 	}
@@ -87,7 +86,7 @@ func (client *ServiceClient) Post(url string, JSONBody interface{}, JSONResponse
 		opts = new(RequestOpts)
 	}
 	client.initReqOpts(url, JSONBody, JSONResponse, opts)
-	klog.Infof("Post: %+v", opts.JSONBody.(map[string]interface{}))
+//	klog.Infof("Post: %+v", opts.JSONBody.(map[string]interface{}))
 	return client.Request("POST", url, opts)
 }
 
