@@ -257,6 +257,8 @@ type UpdateOpts struct {
 
 	// Tags is a set of resource tags. New in version 2.5
 	Tags *[]string `json:"tags,omitempty"`
+
+	ProtocolPort int `json:"protocol_port" required:"true"`
 }
 
 // ToListenerUpdateMap builds a request body from UpdateOpts.
