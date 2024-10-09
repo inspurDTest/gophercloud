@@ -746,6 +746,9 @@ func (client *ProviderClient) doRequest(method, url string, options *RequestOpts
 		for k, v := range options.MoreHeaders {
 			req.Header.Set(k, v)
 		}
+		if len(client.TokenID) != 0 {
+			req.Header.Set("Authorization",  client.TokenID)
+		}
 	}
 
 	for _, v := range options.OmitHeaders {
@@ -757,7 +760,7 @@ func (client *ProviderClient) doRequest(method, url string, options *RequestOpts
 		req.Header.Set(k, v)
 	}*/
 
-	prereqtok := req.Header.Get("X-Auth-Token-fake")
+	prereqtok := req.Header.Get("Authorization")
 
 	// Issue the request.
 	resp, err := client.HTTPClient.Do(req)
